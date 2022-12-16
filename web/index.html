@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+    <input type="text" id="username"><br><br>
+    <input type="text" id="password"><br><br>
+    <div class="g-recaptcha" data-sitekey="6Le5zIQjAAAAAKMQdaNTyYhCOpkQvOOeg8JOkssc"></div>
+    <button onclick="login()">Submit</button>
+</body>
+</html>
+<script>
+    function login(){
+        fetch('http://127.0.0.1:3000/login', {
+            method: 'POST',
+            body: JSON.stringify({
+                key: 'value'
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => console.log(data));
+    }
+</script>
