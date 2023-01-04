@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <link href="styles.css" rel="stylesheet">
+  <script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+</head>
+<body>
+    <iframe src="assets/header.html" width="100%" height="auto" frameborder="0" scrolling="no"></iframe>
+    <input class="flex items-center w-screen text-center p-4 text-5xl" id="title" placeholder="Search here...">
+    <p onclick="search()" id="uploadBTN" class="text-center text-[#335C81] font-bold text-2xl p-2 cursor-pointer rounded-2xl bg-[#C4DCF5] duration-150 hover:text-[#C4DCF5] hover: hover:bg-[#335C81]">Search posts</p>
+    <ul class="scrollable md:flex md:justify-items md:items-center md:w-[20vw]">
+        <div clas="flex justify-items items-center">
+            <div class="grid p-2" id="yourlist">
+            </div>
+        </div>
+    </ul>
+</body>
+</html>
+<script>
+
+fetch('http://127.0.0.1:3000/checkbanstatus', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    credentials: 'include'
+})
+.then((response) => response.json())
+.then((data) => {
+    console.log(data);
+    switch(data.code) {
+        case 400:
+            location.replace("auth.html");
+    } 
+})
+.catch((error) => {
+    console.error('Error:', error);
+});
+function timeConverter(UNIX_timestamp){
+    var dateEP = new Date(UNIX_timestamp).toLocaleDateString("en-AU", {timeZone: "Australia/Melbourne"});
+    var timeEP = new Date(UNIX_timestamp).toLocaleTimeString("en-AU", {timeZone: "Australia/Melbourne"});
+    return dateEP + ' ' + timeEP;
+}
+function limitString(str) {
+    if (str.length > 50) {
+    return str.substring(0, 50) + '...';
+    }
+    return str;
+}
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+}
+
+fetch('http://127.0.0.1:3000/token', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    credentials: 'include'
+})
+.then((response) => response.json())
+.then((data) => {
+    console.log(data.code);
+    switch(data.code) {
+        case 404:
+            location.replace("auth.html?then=home.html");
+            break;
+        case 200:
+            break;
+        default:
+            location.replace("auth.html?then=home.html");
+    } 
+})
+.catch((error) => {
+    console.error('Error:', error);
+});
+function search(){
+    fetch('http://127.0.0.1:3000/searchpost', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({query: document.getElementById('title').value}),
+        credentials: 'include'
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        switch(data.code) {
+        case 200:
+            const list = document.querySelector('#yourlist');
+            list.innerHTML = "";
+            console.log(data);
+            if (data.posts.length == 0){
+                list.innerHTML += `<div id="childDiv"><p id="header">No posts matching that query!</p><p id="author"></p></div>`;
+            }else{
+                const childDiv = document.querySelector('#yourlist');
+                childDiv.setAttribute('class', 'grid-cols-1 2xl:grid-cols-2');
+                for (let i = 0; i < data.posts.length; i++) {
+                    //console.log(data.posts[i]); 
+                    list.innerHTML += `<div class="p-2"><div id="childDiv"><a href="post.html?id=${data.posts[i].id}"><p id="header">${data.posts[i].header}</p><p id="graytext">${limitString(data.posts[i].contents.replace( /(<([^>]+)>)/ig, ''))}</p><p id="author">${timeConverter(data.posts[i].timestamp)}</p></a></div></div>`;
+                }
+            }
+            const childDiv = document.querySelectorAll('#childDiv');
+            childDiv.forEach(p => {
+                p.setAttribute('class', 'col-span-1 p-4 bg-gray-300 gap-4 rounded-2xl text-[#333333] hover:text-[#444444]');
+            });
+            const content = document.querySelectorAll('#graytext');
+            content.forEach(p => {
+                p.setAttribute('class', 'text-gray-500 text-center');
+            });
+            const header = document.querySelectorAll('#header');
+            header.forEach(p => {
+                p.setAttribute('class', 'text-2xl text-center');
+            });
+
+            const author = document.querySelectorAll('#author');
+            author.forEach(p => {
+                p.setAttribute('class', 'text-xl text-center');
+            });
+            break;
+        default:
+            console.log(500);
+        } 
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+</script>

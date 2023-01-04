@@ -1,0 +1,48 @@
+<link href="../styles.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+<body class="p-0 m-0">
+    <div class="bg-[#f4f4f4]">
+        <div class="sm:flex m-auto flex-row max-w-[1000px] place-content-between font-semibold font-sans duration-300 h-32 p-7 w-(100vh) align-middle">
+            <ul>
+                <li class="text-[#222222] duration-150 sm:p-5 p-2 text-center text-4xl sm:text-2xl font-mono cursor-pointer">
+                    <a href="../index.html" id="maintext" target="_parent">IT Project</a>
+                </li>
+            </ul>
+            <ul class="right-0">
+                <ul class="flex m-auto flex-row justify-center items-center">
+                    <li class="cursor-pointer text-[#222222] hover:text-red-400 duration-150 px-5 sm:p-5">
+                        <a href="../create.html" target="_parent"><i class="fa-solid fa-plus"></i></a>
+                    </li>
+                    <li class="text-[#222222] hover:text-red-400 duration-150 px-5 sm:p-5 cursor-pointer">
+                        <a href="../search.html" target="_parent"><i class="fa-solid fa-magnifying-glass"></i></a>
+                    </li>
+                    <li class="text-[#222222] hover:text-red-400 duration-150 px-5 sm:p-5 cursor-pointer">
+                        <a href="../auth.html" target="_parent"><i class="fa-solid fa-user"></i></a>
+                    </li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+</body>
+<script>
+fetch('http://127.0.0.1:3000/token', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    credentials: 'include'
+})
+.then((response) => response.json())
+.then((data) => {
+    console.log(data.code);
+    switch(data.code) {
+        case 200:
+            const maintext = document.querySelector('#maintext');
+            maintext.href = "../home.html";
+            break;
+    } 
+})
+.catch((error) => {
+    console.error('Error:', error);
+});
+</script>

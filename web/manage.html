@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home</title>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <link href="styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+</head>
+<body>
+    <iframe src="assets/header.html" width="100%" height="auto" frameborder="0" scrolling="no"></iframe>
+    <p class="text-center text-5xl font-semibold">Manage posts</p>
+    <div class="scrollable p-5 mx-auto items-center">
+        <div class="grid gap-4 p-2 w-auto" id="postlist">
+        </div>
+    </div>
+    <iframe src="assets/footer.html" width="100%" height="auto" frameborder="0" scrolling="no"></iframe>
+</body>
+</html>
+<script>
+
+fetch('http://127.0.0.1:3000/checkbanstatus', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    credentials: 'include'
+})
+.then((response) => response.json())
+.then((data) => {
+    console.log(data);
+    switch(data.code) {
+        case 400:
+            location.replace("auth.html");
+    } 
+})
+.catch((error) => {
+    console.error('Error:', error);
+});
+function timeConverter(UNIX_timestamp){
+  var dateEP = new Date(UNIX_timestamp).toLocaleDateString("en-AU", {timeZone: "Australia/Melbourne"});
+  var timeEP = new Date(UNIX_timestamp).toLocaleTimeString("en-AU", {timeZone: "Australia/Melbourne"});
+  return dateEP + ' ' + timeEP;
+}
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+}
+function limitString(str) {
+  if (str.length > 50) {
+    return str.substring(0, 50) + '...';
+  }
+  return str;
+}
+function refreshPosts(){
+    fetch('http://127.0.0.1:3000/token', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    credentials: 'include'
+})
+.then((response) => response.json())
+.then((data) => {
+    switch(data.code) {
+        case 404:
+            location.replace("auth.html?then=manage.html");
+            break;
+        case 200:
+            fetch('http://127.0.0.1:3000/listuser', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({name: data.name}),
+                credentials: 'include'
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                if(data.code == 200) {
+                    const list = document.querySelector('#postlist');
+                    list.innerHTML = "";
+                    for (var i = data.posts.length - 1; i >= 0; i--){
+                        console.log(data.posts[i]);
+                        list.innerHTML += `<div id="childDiv"><a href="post.html?id=${data.posts[i].id}"><p id="header">(#${data.posts[i].id}) ${data.posts[i].header} - ${timeConverter(data.posts[i].timestamp)}</a> <i onclick="editPost(${data.posts[i].id})" class="fa-solid fa-pen-to-square cursor-pointer"></i> <i onclick="deletePost(${data.posts[i].id});" class="fa-solid fa-delete-left cursor-pointer"></i></p></a></div>`;
+                    }
+                    const childDiv = document.querySelectorAll('#childDiv');
+                    childDiv.forEach(p => {
+                        p.setAttribute('class', 'col-span-1 bg-gray-300 p-8 rounded-2xl');
+                    });
+                    const content = document.querySelectorAll('#graytext');
+                    content.forEach(p => {
+                        p.setAttribute('class', 'text-gray-500 text-center');
+                    });
+                    const header = document.querySelectorAll('#header');
+                    header.forEach(p => {
+                        p.setAttribute('class', 'text-2xl text-center');
+                    });
+
+                    const author = document.querySelectorAll('#author');
+                    author.forEach(p => {
+                        p.setAttribute('class', 'text-xl text-center');
+                    });
+                    document.querySelector('#welcome').innerHTML = data.name;
+                    document.querySelector('#created').innerHTML = timeConverter(data.creation);    
+                }
+            });
+            break;
+        default:
+            location.replace("auth.html?then=manage.html");
+    } 
+})
+.catch((error) => {
+    console.error('Error:', error);
+});
+}
+
+refreshPosts();
+
+function deletePost(postID){
+    fetch('http://127.0.0.1:3000/deletepost', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({post: postID}),
+        credentials: 'include'
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        if(data.code == 200) {
+            refreshPosts();  
+        }
+    });
+}
+function editPost(post){
+    location.replace(`create.html?edit=${post}`);
+}
+
+</script>

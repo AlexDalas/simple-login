@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <body class="h-screen flex items-center justify-center">
+      <div class="w-80 h-80 bg-gray-100 rounded-xl">
+        <div id="WarningBox" class="hidden">
+            <div class="flex items-center justify-center h-80 w-80">
+                <div>
+                    <p class="text-3xl text-center p-2" id="hText">Log out?</p>
+                    <p class="text-center text-xl p-2" id="sText">You are currently logged in as <a id="hiddenName"></a>.</p>
+                    <ul class="md:flex m-auto flex-row items-center justify-center">
+                        <li class="p-5">
+                          <p onclick="document.cookie = 'token=; max-age=0;'; location.reload();" class="text-center text-[#335C81] font-bold text-xl p-2 cursor-pointer rounded-2xl bg-[#C4DCF5] duration-150 hover:text-[#C4DCF5] hover:bg-[#335C81]">Log out</p>
+                        </li>
+                        <li class="p-5" id="homeText">
+                          <p onclick="location.replace('home.html')" class="text-center text-[#335C81] font-bold text-xl p-2 cursor-pointer rounded-2xl bg-[#C4DCF5] duration-150 hover:text-[#C4DCF5] hover: hover:bg-[#335C81]">Go home</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="LogBoxes" class="">
+            <div id="logInBox">
+                <div class="p-4 w-[100%]">
+                    <input required placeholder="Email" class="w-[100%]" type="text" id="emailL">
+                </div>
+                <div class="p-4 w-[100%]">
+                    <input required placeholder="Password" class="w-[100%]" type="password" id="passwordL">
+                </div>
+                <div class="g-recaptcha flex items-center justify-center" data-sitekey="6Le5zIQjAAAAAKMQdaNTyYhCOpkQvOOeg8JOkssc"></div>
+                <ul class="md:flex m-auto flex-row items-center justify-center">
+                    <li class="p-5">
+                      <p onclick="login()" class="text-center text-[#335C81] font-bold text-xl p-2 cursor-pointer rounded-2xl bg-[#C4DCF5] duration-150 hover:text-[#C4DCF5] hover:bg-[#335C81]">Log in</p>
+                    </li>
+                </ul>
+                <button class="text-center w-80" onclick="swapLogin()">Click here to sign up</button>
+            </div>
+            <div id="signUpBox" class="hidden">
+                <div class="px-4 pt-4 pb-2 w-[100%]">
+                    <input required placeholder="Email" class="w-[100%]" type="text" id="emailS">
+                </div>
+                <div class="px-4 py-2 w-[100%]">
+                    <input required placeholder="Username" class="w-[100%]" type="text" id="usernameS">
+                </div>
+                <div class="px-4 pt-2 pb-4 w-[100%]">
+                    <input required placeholder="Password" class="w-[100%]" type="password" id="passwordS">
+                </div>
+                <div class="g-recaptcha flex items-center justify-center" data-sitekey="6Le5zIQjAAAAAKMQdaNTyYhCOpkQvOOeg8JOkssc"></div>
+                <ul class="md:flex m-auto flex-row items-center justify-center">
+                    <li class="p-2">
+                      <p onclick="signup()" class="text-center text-[#335C81] font-bold text-xl p-2 cursor-pointer rounded-2xl bg-[#C4DCF5] duration-150 hover:text-[#C4DCF5] hover:bg-[#335C81]">Sign up</p>
+                    </li>
+                </ul>
+                <button class="text-center w-80" onclick="swapLogin()">Click here to sign in</button>
+            </div>
+        </div>
+        <br>
+        <p class="text-center w-80" id="warning"></p>
+    </div>
+</body>
+</html>
+<script>
+fetch('http://127.0.0.1:3000/checkbanstatus', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    credentials: 'include'
+})
+.then((response) => response.json())
+.then((data) => {
+    console.log(data);
+    switch(data.code) {
+        case 400:
+            const hText = document.getElementById('hText');
+            const sText = document.getElementById('sText');
+            const homeText = document.getElementById('homeText');
+            hText.innerHTML = "Account restricted";
+            sText.innerHTML = "<a id=\"hiddenName\"></a> is currently restricted.";
+            homeText.classList.add('hidden');
+            break;
+    } 
+})
+.catch((error) => {
+    console.error('Error:', error);
+});
+fetch('http://127.0.0.1:3000/token', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    credentials: 'include'
+})
+.then((response) => response.json())
+.then((data) => {
+    console.log(data.code);
+    switch(data.code) {
+        case 200:
+            if (getParameterByName('then')){
+                location.replace(getParameterByName('then'));
+            }
+            else{
+                console.log(data)
+                document.getElementById('hiddenName').innerHTML = data.name;
+                const WB = document.getElementById('WarningBox');
+                const LB = document.getElementById('LogBoxes');
+                WB.classList.remove('hidden');
+                LB.classList.add('hidden');
+            }
+            break;
+    } 
+})
+.catch((error) => {
+    console.error('Error:', error);
+});
+
+var swapLoginInt = 1;
+function swapLogin(){
+    const lIB = document.getElementById('logInBox');
+    const sIB = document.getElementById('signUpBox');
+    lIB.classList.toggle('hidden');
+    sIB.classList.toggle('hidden');
+    //swapLoginInt++;
+    //if (swapLoginInt % 2 == 0){
+    //    const div = document.getElementById('logInBox');
+    //    div.classList.add('hidden');
+    //}
+}
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+}
+function ValidateEmail(input) {
+    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (input.match(validRegex)) {
+        return true;
+    } else {
+        alert("Invalid email address!");
+        return false;
+    }
+}
+function signup(){
+    if (!ValidateEmail(document.getElementById('emailS').value)){
+        return;
+    }
+    const data = {
+        email: document.getElementById('emailS').value,
+        username: document.getElementById('usernameS').value,
+        password: document.getElementById('passwordS').value
+    };
+
+    fetch('http://127.0.0.1:3000/signup', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        switch(data.code) {
+          case 409:
+            document.getElementById('warning').innerHTML = "Account already exists!";
+            break;
+          case 408:
+            document.getElementById('warning').innerHTML = "Username is taken!";
+            break;
+          case 200:
+            document.getElementById('warning').innerHTML = "Account created!";
+            swapLogin();
+            break;
+          default:
+            document.getElementById('warning').innerHTML = "An error occured (500).";
+        } 
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+function login(){
+    if (!ValidateEmail(document.getElementById('emailL').value)){
+        return;
+    }
+    const dataLogin = {
+        email: document.getElementById('emailL').value,
+        password: document.getElementById('passwordL').value
+    };
+
+    fetch('http://127.0.0.1:3000/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dataLogin)
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        switch(data.code) {
+          case 409:
+            document.getElementById('warning').innerHTML = "Account does not exist!";
+            break;
+          case 404:
+            document.getElementById('warning').innerHTML = "Password is incorrect!";
+            break;
+          case 200:
+            fetch('http://127.0.0.1:3000/gentoken', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dataLogin)
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                switch(data.code) {
+                case 200:
+                    console.log(data.token);
+                    document.cookie="token="+data.token+"; max-age: 2592000";
+                    if (getParameterByName('then')){
+                        location.replace(getParameterByName('then'));
+                    }
+                    else{
+                        location.replace("home.html");
+                    }
+                    break;
+                default:
+                    document.getElementById('warning').innerHTML = "An error occured (500).";
+                } 
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+            break;
+          default:
+            document.getElementById('warning').innerHTML = "An error occured (500).";
+        } 
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+</script>
+
+

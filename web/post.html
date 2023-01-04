@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Post</title>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <iframe src="assets/header.html" width="100%" height="auto" frameborder="0" scrolling="no"></iframe>
+    <p class="text-center text-5xl" id="header"></p>
+    <a id="dateHL"><p class="text-center text-md p-4" id="date"></p></a>
+    <div class="text-center text-xl" id="content"></div>
+</body>
+</html>
+<script>
+
+fetch('http://127.0.0.1:3000/checkbanstatus', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    credentials: 'include'
+})
+.then((response) => response.json())
+.then((data) => {
+    console.log(data);
+    switch(data.code) {
+        case 400:
+            location.replace("auth.html");
+    } 
+})
+.catch((error) => {
+    console.error('Error:', error);
+});
+function timeConverter(UNIX_timestamp){
+  var dateEP = new Date(UNIX_timestamp).toLocaleDateString("en-AU", {timeZone: "Australia/Melbourne"});
+  var timeEP = new Date(UNIX_timestamp).toLocaleTimeString("en-AU", {timeZone: "Australia/Melbourne"});
+  return dateEP + ' ' + timeEP;
+}
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+}
+
+fetch('http://127.0.0.1:3000/listpost', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({post: getParameterByName('id')}),
+    credentials: 'include'
+})
+.then((response) => response.json())
+.then((data) => {
+    switch(data.code) {
+    case 200:
+        if (getParameterByName('id')){
+            document.getElementById("header").innerHTML = data.header;
+            document.getElementById("content").innerHTML = data.content;
+            document.getElementById("date").innerHTML = `Posted by ${data.user} - ${timeConverter(data.time)}`;
+            document.getElementById("dateHL").href = `user.html?name=${data.user}`;
+        }
+        else{
+            location.assign('home.html');
+        }
+        break;
+    default:
+        console.log(500);
+    } 
+})
+.catch((error) => {
+    console.error('Error:', error);
+});
+</script>

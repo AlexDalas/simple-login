@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home</title>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <iframe src="assets/header.html" width="100%" height="auto" frameborder="0" scrolling="no"></iframe>
+    <div class="md:flex m-auto md:flex-row  h-auto md:h-[479px] xl:h-[550px] 2xl:h-[679px]">
+        <ul class="right-0 md:w-[80vw] h-auto md:h-[479px] xl:h-[550px] 2xl:h-[679px]">
+          <li class="font-semibold font-sans duration-1000 lg:p-6 ce md:h-[479px] xl:h-[550px] 2xl:h-[679px] grid place-items-center">
+            <div>
+              <p class="bg-clip-text text-transparent bg-gradient-to-tr from-[#ee9800] via-[#ff9800] to-[#ee9800] drop-shadow-2xl sm:text-6xl md:text-7xl text-5xl p-2 text-center">Hello, <a id="welcome">user</a>!</p>
+              <p class="bg-clip-text text-transparent bg-gradient-to-tr from-[#333333] via-[#222222] to-[#444444] text-2xl p-2 text-center">Here are your most recent posts.</p>
+              <ul class="md:flex m-auto flex-row items-center justify-center">
+                <li class="p-5">
+                  <a href="manage.html"><p class="text-center text-[#335C81] font-bold text-2xl p-2 cursor-pointer rounded-2xl bg-[#C4DCF5] duration-150 hover:text-[#C4DCF5] hover:bg-[#335C81]">Manage posts</p></a>
+                </li>
+                <li class="p-5">
+                  <a href="create.html"><p class="text-center text-[#335C81] font-bold text-2xl p-2 cursor-pointer rounded-2xl bg-[#C4DCF5] duration-150 hover:text-[#C4DCF5] hover: hover:bg-[#335C81]">Create post</p></a>
+                </li>
+              </ul>
+            </div>            
+          </li>
+        </ul>
+        <ul class="scrollable md:flex md:justify-items md:items-center md:w-[20vw]">
+            <div clas="flex justify-items items-center">
+                <div class="grid p-2" id="yourlist">
+                </div>
+            </div>
+        </ul>
+      </div>
+    <p class="bg-[#f4f4f4] text-5xl text-center p-4">All Posts</p>
+    <div class="bg-[#f4f4f4] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-2" id="postlist">
+    </div>
+    <iframe src="assets/footer.html" width="100%" height="auto" frameborder="0" scrolling="no"></iframe>
+</body>
+</html>
+<script>
+function timeConverter(UNIX_timestamp){
+  var dateEP = new Date(UNIX_timestamp).toLocaleDateString("en-AU", {timeZone: "Australia/Melbourne"});
+  var timeEP = new Date(UNIX_timestamp).toLocaleTimeString("en-AU", {timeZone: "Australia/Melbourne"});
+  return dateEP + ' ' + timeEP;
+}
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+}
+function limitString(str) {
+  if (str.length > 50) {
+    return str.substring(0, 50) + '...';
+  }
+  return str;
+}
+
+fetch('http://127.0.0.1:3000/checkbanstatus', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    credentials: 'include'
+})
+.then((response) => response.json())
+.then((data) => {
+    console.log(data);
+    switch(data.code) {
+        case 400:
+            location.replace("auth.html");
+    } 
+})
+.catch((error) => {
+    console.error('Error:', error);
+});
+
+fetch('http://127.0.0.1:3000/token', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    credentials: 'include'
+})
+.then((response) => response.json())
+.then((data) => {
+    console.log(data.code);
+    switch(data.code) {
+        case 404:
+            location.replace("auth.html?then=home.html");
+            break;
+        case 200:
+            console.log(data)
+            document.getElementById('welcome').innerHTML = data.name;
+            fetch('http://127.0.0.1:3000/listpost', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({author: data.name}),
+                credentials: 'include'
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                switch(data.code) {
+                case 200:
+                    const list = document.querySelector('#yourlist');
+                    console.log(data);
+                    if (data.posts.length == 0){
+                        list.innerHTML += `<div id="childDiv"><a href="create.html"><p id="header">No posts!</p><p id="graytext">Click here to create a post</p><p id="author"></p></a></div>`;
+                    }else{
+                        const childDiv = document.querySelector('#yourlist');
+                        childDiv.setAttribute('class', 'grid-cols-1 2xl:grid-cols-2');
+                        for (let i = 0; i < data.posts.length; i++) {
+                            //console.log(data.posts[i]); 
+                            list.innerHTML += `<div class="p-2"><div id="childDiv"><a href="post.html?id=${data.posts[i].id}"><p id="header">${data.posts[i].header}</p><p id="graytext">${limitString(data.posts[i].contents.replace( /(<([^>]+)>)/ig, ''))}</p><p id="author">${timeConverter(data.posts[i].timestamp)}</p></a></div></div>`;
+                        }
+                    }
+                    const childDiv = document.querySelectorAll('#childDiv');
+                    childDiv.forEach(p => {
+                        p.setAttribute('class', 'col-span-1 p-4 bg-gray-300 gap-4 rounded-2xl text-[#333333] hover:text-[#444444]');
+                    });
+                    const content = document.querySelectorAll('#graytext');
+                    content.forEach(p => {
+                        p.setAttribute('class', 'text-gray-500 text-center');
+                    });
+                    const header = document.querySelectorAll('#header');
+                    header.forEach(p => {
+                        p.setAttribute('class', 'text-2xl text-center');
+                    });
+
+                    const author = document.querySelectorAll('#author');
+                    author.forEach(p => {
+                        p.setAttribute('class', 'text-xl text-center');
+                    });
+                    break;
+                default:
+                    console.log(500);
+                } 
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+            break;
+        default:
+            location.replace("auth.html?then=home.html");
+    } 
+})
+.catch((error) => {
+    console.error('Error:', error);
+});
+fetch('http://127.0.0.1:3000/listpost', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({post: getParameterByName('id')}),
+    credentials: 'include'
+})
+.then((response) => response.json())
+.then((data) => {
+    switch(data.code) {
+    case 200:
+        const list = document.querySelector('#postlist');
+        for (var i = data.posts.length - 1; i >= 0; i--) {
+            console.log(data.posts[i]);
+            list.innerHTML += `<div id="childDiv"><br><a href="post.html?id=${data.posts[i].id}"><p id="header">${data.posts[i].header}</p><p id="graytext">${limitString(data.posts[i].contents.replace( /(<([^>]+)>)/ig, ''))}</p><p id="author"><a href="user.html?name=${data.posts[i].user}">Posted by ${data.posts[i].user} - ${timeConverter(data.posts[i].timestamp)}</a></p></a><br></div>`;
+        }
+        const childDiv = document.querySelectorAll('#childDiv');
+        childDiv.forEach(p => {
+            p.setAttribute('class', 'col-span-1 bg-gray-300 p-8 rounded-2xl');
+        });
+        const content = document.querySelectorAll('#graytext');
+        content.forEach(p => {
+            p.setAttribute('class', 'text-gray-500 text-center');
+        });
+        const header = document.querySelectorAll('#header');
+        header.forEach(p => {
+            p.setAttribute('class', 'text-2xl text-center');
+        });
+
+        const author = document.querySelectorAll('#author');
+        author.forEach(p => {
+            p.setAttribute('class', 'text-xl text-center');
+        });
+
+
+        break;
+    default:
+        console.log(500);
+    } 
+})
+.catch((error) => {
+    console.error('Error:', error);
+});
+
+</script>
