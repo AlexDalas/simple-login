@@ -24,7 +24,7 @@ let fileStream;
 
 function logData(data) {
     const date = new Date();
-    const filename = `logs/log-${date.toISOString().slice(0, 10)}.txt`;
+    const filename = `program_logs/log-${date.toISOString().slice(0, 10)}.txt`;
     if (!fileStream || filename !== fileStream.path) {
       fileStream = fs.createWriteStream(filename, { flags: 'a' });
     }
@@ -47,6 +47,9 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 yourDB = "testAPP";
+
+// Below commented code is needed for pre-setup
+/*
 
 var con = mysql.createConnection({
     host: "localhost",
@@ -75,7 +78,7 @@ if (error) {
 });
 
 con.end();
-
+*/
 var con = mysql.createConnection({
     host: "localhost",
     user: "alex",
