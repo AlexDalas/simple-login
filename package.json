@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "node main.js",
-    "tailwind": "tailwindcss build -i src/styles.css -o web/styles.css --watch"
+    "tailwind": "tailwindcss build -i src/styles.css -o web/styles.css --watch --debug"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +17,7 @@
     "express": "^4.18.2",
     "mysql": "^2.18.1",
     "recaptcha-verify": "^0.1.1",
-    "tailwindcss": "^3.2.4"
+    "tailwindcss": "^3.2.4",
+    "vhosts": "^1.0.10"
   }
 }

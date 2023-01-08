@@ -11,12 +11,37 @@ const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
 const cors = require('cors');
 const app = express();
+const fs = require('fs');
 const admins = ["alex_dalas@outlook.com"];
 
 app.use(cors({
     origin: 'http://127.0.0.1:3030',
     credentials: true,
   }));
+
+
+let fileStream;
+
+function logData(data) {
+    const date = new Date();
+    const filename = `logs/log-${date.toISOString().slice(0, 10)}.txt`;
+    if (!fileStream || filename !== fileStream.path) {
+      fileStream = fs.createWriteStream(filename, { flags: 'a' });
+    }
+    fileStream.write(`${data}\n`);
+    console.log(data);
+}
+const date = new Date();
+logData(`---\nStarting script on ${date.toISOString().slice(0, 10)} at ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}\n---`)
+function closeLog() {
+    if (fileStream) {
+      fileStream.end();
+      fileStream = null;
+    }
+    process.exit();
+  }
+
+process.on('SIGINT', closeLog);
 
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -33,14 +58,19 @@ var con = mysql.createConnection({
 
 con.connect(function(err) {
     if (err) throw err;
-    console.log("Connected!");
+    logData("Connected to database for pre-setup");
 });
 
 con.query(`CREATE DATABASE IF NOT EXISTS ${yourDB};`, (error, results) => {
 if (error) {
-    console.error(error);
+    logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
 } else {
-    //console.log(results);
+    if (results.insertId){
+        logData(`Created database ${yourDB}`);
+    }
+    else{
+        logData(`Database '${yourDB}' already exists`);
+    }
 }
 });
 
@@ -57,33 +87,62 @@ var con = mysql.createConnection({
 
 con.query(`CREATE TABLE IF NOT EXISTS users (id INT NOT NULL AUTO_INCREMENT, name VARCHAR(255) NOT NULL, email VARCHAR(255), password VARCHAR(255), created BIGINT NOT NULL, banned BOOLEAN, PRIMARY KEY(id));`, (error, results) => {
     if (error) {
-        console.error(error);
-    } //else {
-        //console.log(results);
-    //}
+        logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
+    } else {
+        if (!results.warningCount){
+            logData(`Created table 'users'`);
+        }
+        else{
+            logData(`Table 'users' already exists`);
+        }
+    }
 });  
 
 con.query(`CREATE TABLE IF NOT EXISTS tokens (id INT NOT NULL AUTO_INCREMENT, token VARCHAR(255) NOT NULL, user VARCHAR(255) NOT NULL, PRIMARY KEY(id));`, (error, results) => {
     if (error) {
-        console.error(error);
-    } //else {
-        //console.log(results);
-    //}
+        logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
+    } else {
+        if (!results.warningCount){
+            logData(`Created table 'tokens'`);
+        }
+        else{
+            logData(`Table 'tokens' already exists`);
+        }
+    }
 });  
 
 con.query(`CREATE TABLE IF NOT EXISTS posts (id INT NOT NULL AUTO_INCREMENT, user VARCHAR(255) NOT NULL, header VARCHAR(255) NOT NULL, contents LONGTEXT NOT NULL, timestamp BIGINT NOT NULL, PRIMARY KEY(id));`, (error, results) => {
     if (error) {
-        console.error(error);
-    } //else {
-        //console.log(results);
-    //}
+        logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
+    } else {
+        if (!results.warningCount){
+            logData(`Created table 'posts'`);
+        }
+        else{
+            logData(`Table 'posts' already exists`);
+        }
+    }
+});  
+
+
+con.query(`CREATE TABLE IF NOT EXISTS comments (id INT NOT NULL AUTO_INCREMENT, user VARCHAR(255) NOT NULL, comment LONGTEXT NOT NULL, postid INT NOT NULL, timestamp BIGINT NOT NULL, PRIMARY KEY(id));`, (error, results) => {
+    if (error) {
+        logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
+    } else {
+        if (!results.warningCount){
+            logData(`Created table 'comments'`);
+        }
+        else{
+            logData(`Table 'comments' already exists`);
+        }
+    }
 });  
 
 function accountExists(email){
     return new Promise((resolve, reject) => {
       con.query('SELECT COUNT(*) FROM users WHERE email = ?', [email], (error, results) => {
           if (error) {
-          console.error(error);
+          logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
           resolve(false);
           } else {
           const count = results[0]['COUNT(*)'];          
@@ -97,11 +156,11 @@ function usernameTaken(username){
     return new Promise((resolve, reject) => {
         con.query('SELECT COUNT(*) FROM users WHERE name = ?', [username], (error, results) => {
             if (error) {
-            console.error(error);
-            resolve(false);
+                logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
+                resolve(false);
             } else {
-            const count = results[0]['COUNT(*)'];          
-            resolve((count > 0));
+                const count = results[0]['COUNT(*)'];          
+                resolve((count > 0));
             }
         });
     });
@@ -119,48 +178,28 @@ function validatePassword(plainTextPassword, hashedPassword) {
     });
 }
 
-function createPost(email, header, contents){  
-    return new Promise((resolve, reject) => {
-        con.query('INSERT INTO posts (email, header, contents) VALUES (?, ?, ?)', [email, header, contents], (error, results) => {
-            if (error) {
-                console.error(error);
-                resolve(500);
-            } else {
-                //console.log(results);
-                resolve(200);
-            }
-        });
-    });
-}
-
-function getPost(id){
-    //get posts, get post author id (for linking to user url, to show all posts by author)
-    return new Promise((resolve, reject) => {
-        
-    });
-}
-
 function createUser(name, email, password){  
     return new Promise((resolve, reject) => {
         accountExists(email).then(result => {
             if (result){
                 resolve(409);
+                logData(`User ${email} tried to create an account, but already has one!`);
             }
             else{
                 usernameTaken(name).then(result => {
                     if (result){
                         resolve(408);
+                        logData(`User ${email} tried to create an account with the name ${name}, but that name is taken!`);
                     }
                     else{
                         hashPassword(password).then((hashedPassword) => {
-                            console.log(hashedPassword);
                             con.query('INSERT INTO users (name, email, password, created, banned) VALUES (?, ?, ?, ?, ?)', [name, email, hashedPassword, Date.now(), false], (error, results) => {
                                 if (error) {
-                                    console.error(error);
+                                    logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
                                     resolve(500);
                                 } else {
-                                    //console.log(results);
                                     resolve(200);
+                                    logData(`User ${name} has created an account with the email ${email}`);
                                 }
                             });
                         });
@@ -175,14 +214,11 @@ function validateUser(email, password){
     return new Promise((resolve, reject) => {
         accountExists(email).then(result => {
             if (result){
-                console.log("User found");
                 con.query('SELECT * FROM users WHERE email = ?', [email], (error, results) => {
                     validatePassword(password, results[0].password).then(isValid => {
                         if (isValid) {
-                            console.log("Password is correct")
                             resolve(200);
                         } else{
-                            console.log("Password is incorrect")
                             resolve(404);
                         }
                     });
@@ -200,7 +236,6 @@ function validateUser(email, password){
 function checkToken(token){  
     return new Promise((resolve, reject) => {
         try{
-            console.log(token);
             con.query('SELECT * FROM tokens WHERE token = ?', [token], (error, results) => {
                 if (results[0]){
                     con.query('SELECT * FROM users WHERE email = ?', [results[0].user], (error, results) => {
@@ -223,20 +258,23 @@ function checkToken(token){
 }
 
 app.post('/login', (req, res) => {
-    console.log(req.body);
     validateUser(req.body.email, req.body.password).then(result => {
         switch(result) {
             case 409:
+                logData(`Authentication failed for ${req.body.email} (Does not exist)`);
                 res.json({ code: 409 });
                 break;
             case 404:
+                logData(`Authentication failed for ${req.body.email} (Wrong password)`);
                 res.json({ code: 404 });
                 break;
             case 200:
                 var tk = "";
+                logData(`Authenticated ${req.body.email}`);
                 res.json({ code: 200, token: tk });
                 break;
             default:
+                logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
                 res.json({ code: 500 });
                 break;
         } 
@@ -263,7 +301,6 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/signup', (req, res) => {
-    console.log(req.body);
     createUser(req.body.username, req.body.email, req.body.password).then(result => {
         switch(result) {
             case 409:
@@ -301,47 +338,52 @@ app.post('/signup', (req, res) => {
 });
 
 app.post('/token', (req, res) => {
+    const ip = req.ip;
     checkToken(req.cookies['token']).then(data=>{
         if (data != 500){
             con.query('SELECT * FROM users WHERE email = ?', [data], (error, results) => {
                 if (results){
+                    logData(`${ip} (${results[0].name}) has accessed ${req.path}`);
                     res.json({ code: 200, name: results[0].name, email: results[0].email, id: results[0].id })
                 }
                 else{
+                    logData(`${ip} is not logged in`);
                     res.json({ code: 500 });
                 }
             });
         }
         else{
+            logData(`${ip} (not logged in) has accessed ${req.path}`);
             res.json({ code: 404 });
         }
     });
 });
 
 app.post('/gentoken', (req, res) => {
-    console.log(req.body);
     validateUser(req.body.email, req.body.password).then(result => {
-        console.log(result);
         switch(result) {
             case 409:
+                logData(`User could not be validated`);
                 res.json({ code: 409 });
                 break;
             case 404:
+                logData(`User could not be validated`);
                 res.json({ code: 404 });
                 break;
             case 200:
                 var tk = crypto.randomBytes(64).toString('hex');
                 con.query('INSERT INTO tokens (token, user) VALUES (?, ?)', [tk, req.body.email], (error, results) => {
                     if (error) {
-                        console.error(error);
+                        logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
                         res.json({ code: 500 });
                     } else {
-                        console.log(crypto.randomBytes(64).toString('hex'));
+                        logData(`Generated token "${tk}" for user ${req.body.email}`);
                         res.json({ code: 200, token: tk });
                     }
                 });
                 break;
             default:
+                logData(`----------\nERROR OCCURED (2)\n----------\n`);
                 res.json({ code: 500 });
                 break;
         } 
@@ -372,15 +414,20 @@ app.post('/listpost', (req, res) => {
         if (req.body.post <= 0){
             res.json({ code: 500 });
         }
-        console.log(req.body);
         con.query('SELECT * FROM posts WHERE id = ?', [req.body.post], (error, results) => {
             if (error || !results) {
-                console.error(error);
+                if (results) {logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);}
                 res.json({ code: 500 });
             } else {
-                console.log(results);
                 try{
-                    res.json({ code: 200, header: results[0].header, content: results[0].contents, time: results[0].timestamp, user: results[0].user });
+                    isAdmin(req.cookies['token']).then(data=>{
+                        if (data != 500){        
+                            res.json({ code: 200, header: results[0].header, content: results[0].contents, time: results[0].timestamp, user: results[0].user, canDel: true });
+                        }
+                        else{
+                            res.json({ code: 200, header: results[0].header, content: results[0].contents, time: results[0].timestamp, user: results[0].user, canDel: false });
+                        }
+                    });
                 }
                 catch{
                     res.json({ code: 500 });
@@ -392,10 +439,9 @@ app.post('/listpost', (req, res) => {
     else if(req.body.author){
         con.query('SELECT * FROM posts WHERE user = ? ORDER BY id DESC LIMIT 10', [req.body.author], (error, results) => {
             if (error || !results) {
-                console.error(error);
+                if (results) {logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);}
                 res.json({ code: 500 });
             } else {
-                console.log(results);
                 res.json({ code: 200, posts: results });
             }
         });
@@ -403,10 +449,9 @@ app.post('/listpost', (req, res) => {
     else{
         con.query('SELECT * FROM posts ORDER BY id;', (error, results) => {
             if (error) {
-                console.error(error);
+                logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
                 res.json({ code: 500 });
             } else {
-                console.log(results);
                 res.json({ code: 200, posts: results });
             }
         });
@@ -418,20 +463,34 @@ app.post('/createpost', (req, res) => {
     checkToken(req.cookies['token']).then(data=>{
         if (data != 500){
             con.query('SELECT * FROM users WHERE email = ?', [data], (error, results) => {
-                con.query('INSERT INTO posts (user, header, contents, timestamp) VALUES (?, ?, ?, ?)', [results[0].name, req.body.header, req.body.contents, Date.now()], (error) => {
+                con.query('SELECT timestamp FROM posts WHERE user = ? ORDER BY timestamp DESC LIMIT 1;', [results[0].name], (error, results2) => {
                     if (error) {
-                        console.error(error);
+                        logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
                         res.json({ code: 500 });
                     } else {
-                        con.query('SELECT * FROM posts WHERE user = ? ORDER BY timestamp DESC LIMIT 1', [results[0].name], (error, results) => {
-                            if (error) {
-                                console.error(error);
-                                res.json({ code: 500 });
-                            } else {
-                                console.log(results); // results is not defined
-                                res.json({ code: 200, redirect: results[0].id});
-                            }
-                        });
+                        var timestamp = 0;
+                        try{timestamp = results2[0].timestamp;}
+                        catch{timestamp = 0;}
+                        if (timestamp <= (Date.now() - 200000)){
+                            con.query('INSERT INTO posts (user, header, contents, timestamp) VALUES (?, ?, ?, ?)', [results[0].name, req.body.header, req.body.contents, Date.now()], (error) => {
+                                if (error) {
+                                    logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
+                                    res.json({ code: 500 });
+                                } else {
+                                    con.query('SELECT * FROM posts WHERE user = ? ORDER BY timestamp DESC LIMIT 1', [results[0].name], (error, results) => {
+                                        if (error) {
+                                            logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
+                                            res.json({ code: 500 });
+                                        } else {
+                                            res.json({ code: 200, redirect: results[0].id});
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                        else{
+                            res.json({ code: 501 });
+                        }
                     }
                 });
             });
@@ -446,10 +505,9 @@ app.post('/listuser', (req, res) => {
     con.query('SELECT * FROM users WHERE name = ?', [req.body.name], (error, resultsName) => {
         con.query('SELECT * FROM posts WHERE user = ?', [req.body.name], (error, results) => {
             if (error || !results) {
-                console.error(error);
+                if (results){logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);}
                 res.json({ code: 500 });
             } else {
-                console.log(results);
                 res.json({ code: 200, name: req.body.name, posts: results, creation: resultsName[0].created });
             }
         });
@@ -461,15 +519,14 @@ app.post('/deletepost', (req, res) => {
         if (data != 500){
             con.query('SELECT * FROM posts WHERE id = ?', [req.body.post], (error, resultsName) => {
                 con.query('SELECT * FROM users WHERE name = ?', [resultsName[0].user], (error, UserPostName) => {
-                    if (error || !resultsName || (UserPostName[0].email != data && !isAdmin(req.cookies['token']))) {
-                        console.error(error);
+                    if (error){
+                        logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
+                        res.json({ code: 500 });
+                    } else if (!resultsName || (UserPostName[0].email != data && !isAdmin(req.cookies['token']))) {
                         res.json({ code: 500 });
                     } else {
                         con.query("DELETE FROM posts WHERE id = ?", [req.body.post], function (err, result) {
                             if (err) throw err;
-                            console.log(resultsName);
-                            console.log(data);
-                            console.log(result.affectedRows + " record(s) deleted");
                             res.json({ code: 200 });
                         });
                     }
@@ -487,13 +544,13 @@ app.post('/editpost', (req, res) => {
         if (data != 500){
             con.query('SELECT * FROM posts WHERE id = ?', [req.body.id], (error, resultsName) => {
                 con.query('SELECT * FROM users WHERE name = ?', [resultsName[0].user], (error, UserPostName) => {
-                    if (error || !resultsName || (UserPostName[0].email != data && !isAdmin(req.cookies['token']))) {
-                        console.error(error);
+                    if (error){
+                    logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
+                } else if (!resultsName || (UserPostName[0].email != data && !isAdmin(req.cookies['token']))) {
                         res.json({ code: 500 });
                     } else {
                         con.query("UPDATE posts SET contents = ?, timestamp = ? WHERE id = ?", [req.body.contents, Date.now(), req.body.id], function (err, result) {
                             if (err) throw err;
-                            console.log(result.affectedRows + " record(s) deleted");
                           });
                           res.json({ code: 200 });
                     }
@@ -509,10 +566,9 @@ app.post('/editpost', (req, res) => {
 app.post('/searchpost', (req, res) => {
     con.query('SELECT * FROM posts WHERE header LIKE ? OR user LIKE ? OR contents LIKE ? ORDER BY id;', [req.body.query, req.body.query, req.body.query], (error, results) => {
         if (error) {
-            console.error(error);
+            logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
             res.json({ code: 500 });
         } else {
-            console.log(results);
             res.json({ code: 200, posts: results });
         }
     });
@@ -536,10 +592,9 @@ app.post('/listusers', (req, res) => {
         if (data != 500){        
             con.query('SELECT * FROM users ORDER BY id;', (error, results) => {
                 if (error) {
-                    console.error(error);
+                    logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
                     res.json({ code: 500 });
                 } else {
-                    console.log(results);
                     res.json({ code: 200, posts: results });
                 }
             });
@@ -569,9 +624,10 @@ app.post('/deleteaccount', (req, res) => {
                     con.query("DELETE FROM users WHERE email = ?", [user[0].email], function (err, result) {   
                         con.query("DELETE FROM tokens WHERE user = ?", [user[0].email], function (err, result) {
                             con.query("DELETE FROM posts WHERE user = ?", [user[0].name], function (err, result) {
-                                if (err) throw err;
-                                console.log(`Deleted user ${user[0].name}`);
-                                res.json({ code: 200 });
+                                con.query("DELETE FROM comments WHERE user = ?", [user[0].name], function (err, result) {
+                                    if (err) throw err;
+                                    res.json({ code: 200 });
+                                });
                             });
                         });
                     });
@@ -593,7 +649,6 @@ app.post('/banaccount', (req, res) => {
                 if (data != 500 && !admins.includes(user[0].email)){     
                     con.query("UPDATE users SET banned = NOT banned WHERE id = ?", [req.body.user], function (err, result) {
                         if (err) throw err;
-                        console.log(result.affectedRows + " record(s) deleted");
                         res.json({ code: 200 });
                     });
                 }
@@ -615,7 +670,6 @@ app.post('/checkbanstatus', (req, res) => {
                 con.query("SELECT banned FROM users WHERE email = ?", [data], function (err, result) {
                     if (err) throw err;
                     if (result[0]){
-                        console.log(result[0].banned);
                         res.json({ code: 200+(result[0].banned*200) });
                     }
                     else{
@@ -629,6 +683,71 @@ app.post('/checkbanstatus', (req, res) => {
         }
         catch{
             res.json({ code: 200 });
+        }
+    });
+});
+
+app.post('/comment', (req, res) => {
+    if (req.body.comment == null) {res.json({ code : 500 });}
+    checkToken(req.cookies['token']).then(data=>{
+        if (data != 500){
+            con.query('SELECT * FROM users WHERE email = ?', [data], (error, results) => {
+                con.query('SELECT timestamp FROM comments WHERE user = ? ORDER BY timestamp DESC LIMIT 1;', [results[0].name], (error, results2) => {
+                    if (error) {
+                        logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
+                        res.json({ code: 500 });
+                    } else {
+                        var timestamp = 0;
+                        try{timestamp = results2[0].timestamp;}
+                        catch{timestamp = 0;}
+                        if (timestamp <= (Date.now() - 120000)){
+                            con.query('INSERT INTO comments (user, comment, postid, timestamp) VALUES (?, ?, ?, ?)', [results[0].name, req.body.comment, req.body.postid, Date.now()], (error) => {
+                                if (error) {
+                                    logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
+                                    res.json({ code: 500 });
+                                } else {
+                                    if (error) {
+                                        logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
+                                        res.json({ code: 500 });
+                                    } else {
+                                        res.json({ code: 200});
+                                    }
+                                }
+                            });
+                        }
+                        else{
+                            res.json({ code: 501 });
+                        }
+                    }
+                });
+            });
+        }
+        else{
+            res.json({ code: 404 });
+        }  
+    });
+});
+app.post('/listcomments', (req, res) => {
+    con.query('SELECT * FROM comments WHERE postid = ? ORDER BY timestamp DESC;', [req.body.postid], (error, results) => {
+        if (error) {
+            logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
+            res.json({ code: 500 });
+        } else {
+            res.json({ code: 200, posts: results });
+        }
+    });
+});
+
+app.post('/deletecomment', (req, res) => {
+    isAdmin(req.cookies['token']).then(data=>{
+        if (data != 500){
+            con.query("DELETE FROM comments WHERE id = ?", [req.body.commentid], function (err, result) {
+                if (err) throw err;
+                res.json({ code: 200 });
+            });
+        }
+        else{
+            res.json({ code: 404 });
         }
     });
 });

@@ -8,11 +8,11 @@
 <body>
     <iframe src="assets/header.html" width="100%" height="auto" frameborder="0" scrolling="no"></iframe>
     <div class="md:flex m-auto md:flex-row  h-auto md:h-[479px] xl:h-[550px] 2xl:h-[679px]">
-        <ul class="right-0 md:w-[80vw] h-auto md:h-[479px] xl:h-[550px] 2xl:h-[679px]">
+        <ul class="right-0 w-[100vw] lg:w-[80vw] h-auto md:h-[479px] xl:h-[550px] 2xl:h-[679px]">
           <li class="font-semibold font-sans duration-1000 lg:p-6 ce md:h-[479px] xl:h-[550px] 2xl:h-[679px] grid place-items-center">
             <div>
               <p class="bg-clip-text text-transparent bg-gradient-to-tr from-[#ee9800] via-[#ff9800] to-[#ee9800] drop-shadow-2xl sm:text-6xl md:text-7xl text-5xl p-2 text-center">Hello, <a id="welcome">user</a>!</p>
-              <p class="bg-clip-text text-transparent bg-gradient-to-tr from-[#333333] via-[#222222] to-[#444444] text-2xl p-2 text-center">Here are your most recent posts.</p>
+              <p class="hidden lg:block bg-clip-text text-transparent bg-gradient-to-tr from-[#333333] via-[#222222] to-[#444444] text-2xl p-2 text-center">Here are your most recent posts.</p>
               <ul class="md:flex m-auto flex-row items-center justify-center">
                 <li class="p-5">
                   <a href="manage.html"><p class="text-center text-[#335C81] font-bold text-2xl p-2 cursor-pointer rounded-2xl bg-[#C4DCF5] duration-150 hover:text-[#C4DCF5] hover:bg-[#335C81]">Manage posts</p></a>
@@ -24,7 +24,7 @@
             </div>            
           </li>
         </ul>
-        <ul class="scrollable md:flex md:justify-items md:items-center md:w-[20vw]">
+        <ul class="hidden scrollable lg:flex md:justify-items lg:items-center lg:w-[20vw]">
             <div clas="flex justify-items items-center">
                 <div class="grid p-2" id="yourlist">
                 </div>
@@ -32,7 +32,7 @@
         </ul>
       </div>
     <p class="bg-[#f4f4f4] text-5xl text-center p-4">All Posts</p>
-    <div class="bg-[#f4f4f4] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-2" id="postlist">
+    <div class="bg-[#f4f4f4] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-2" id="postlist">
     </div>
     <iframe src="assets/footer.html" width="100%" height="auto" frameborder="0" scrolling="no"></iframe>
 </body>
@@ -112,6 +112,7 @@ fetch('http://127.0.0.1:3000/token', {
                         const childDiv = document.querySelector('#yourlist');
                         childDiv.setAttribute('class', 'grid-cols-1 2xl:grid-cols-2');
                         for (let i = 0; i < data.posts.length; i++) {
+                            if (i >= 3) {break;}
                             //console.log(data.posts[i]); 
                             list.innerHTML += `<div class="p-2"><div id="childDiv"><a href="post.html?id=${data.posts[i].id}"><p id="header">${data.posts[i].header}</p><p id="graytext">${limitString(data.posts[i].contents.replace( /(<([^>]+)>)/ig, ''))}</p><p id="author">${timeConverter(data.posts[i].timestamp)}</p></a></div></div>`;
                         }
@@ -131,7 +132,7 @@ fetch('http://127.0.0.1:3000/token', {
 
                     const author = document.querySelectorAll('#author');
                     author.forEach(p => {
-                        p.setAttribute('class', 'text-xl text-center');
+                        p.setAttribute('class', 'text-xl text-center hidden xl:block');
                     });
                     break;
                 default:

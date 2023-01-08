@@ -4,12 +4,41 @@
   <title>Post</title>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <link href="styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 </head>
 <body>
     <iframe src="assets/header.html" width="100%" height="auto" frameborder="0" scrolling="no"></iframe>
-    <p class="text-center text-5xl" id="header"></p>
-    <a id="dateHL"><p class="text-center text-md p-4" id="date"></p></a>
-    <div class="text-center text-xl" id="content"></div>
+    <div class="flex items-center justify-center">
+        <div class="mx-6 my-4 border-2 w-screen max-w-[1000px] border-gray-300 rounded-lg overflow-hidden">
+            <p class="text-center text-5xl p-4" id="header"></p>
+            <a id="dateHL"><p class="text-center text-md" id="date"></p></a>
+            <div class="text-center text-xl p-4" id="content"></div>
+            <div>
+            <div class="px-4 py-3 bg-gray-50">
+            <form>
+                <div class="mb-4">
+                <textarea
+                    class="form-input w-full py-2 px-3 leading-5 rounded-md transition duration-150 ease-in-out"
+                    id="comment"
+                    rows="3"
+                    placeholder="Add a comment..."
+                ></textarea>
+                </div>
+                <div class="flex items-center justify-between">
+                <div
+                    onclick="uploadComment()"
+                    class="text-center text-[#335C81] font-bold text-xl p-2 cursor-pointer rounded-2xl bg-[#C4DCF5] duration-150 hover:text-[#C4DCF5] hover:bg-[#335C81]">
+                    Post Comment
+                </div>
+                <p class="px-2" id="RateLimit"></p>
+                </div>
+            </form>
+            </div>
+            <div class="px-4 py-3" id="commentlist">
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
 <script>
@@ -37,12 +66,48 @@ function timeConverter(UNIX_timestamp){
   var timeEP = new Date(UNIX_timestamp).toLocaleTimeString("en-AU", {timeZone: "Australia/Melbourne"});
   return dateEP + ' ' + timeEP;
 }
+
 function getParameterByName(name) {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
     var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
     var results = regex.exec(location.search);
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 }
+
+function timeAgo(timestamp) {
+  // Calculate the number of seconds in a day
+  const secondsPerDay = 60 * 60 * 24;
+
+  // Calculate the number of seconds, minutes, hours, days, weeks, months, and years between the current time and the given timestamp
+  const seconds = (Date.now() - timestamp) / 1000;
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+  const weeks = Math.floor(days / 7);
+  const months = Math.floor(days / 30);
+  const years = Math.floor(days / 365);
+
+  // Return the appropriate string
+  if (years > 0) {
+    return `${years} year${years > 1 ? "s" : ""} ago`;
+  } else if (months > 0) {
+    return `${months} month${months > 1 ? "s" : ""} ago`;
+  } else if (weeks > 0) {
+    return `${weeks} week${weeks > 1 ? "s" : ""} ago`;
+  } else if (days > 0) {
+    return `${days} day${days > 1 ? "s" : ""} ago`;
+  } else if (hours > 0) {
+    return `${hours} hour${hours > 1 ? "s" : ""} ago`;
+  } else if (minutes > 0) {
+    return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
+  } else if (seconds >= 0) {
+    return `${seconds} second${seconds !== 1 ? "s" : ""} ago`;
+  } else {
+    return "today";
+  }
+}
+
+canDelete = false;
 
 fetch('http://127.0.0.1:3000/listpost', {
     method: 'POST',
@@ -61,6 +126,11 @@ fetch('http://127.0.0.1:3000/listpost', {
             document.getElementById("content").innerHTML = data.content;
             document.getElementById("date").innerHTML = `Posted by ${data.user} - ${timeConverter(data.time)}`;
             document.getElementById("dateHL").href = `user.html?name=${data.user}`;
+            console.log(data);
+            if (data.canDel){
+                canDelete = true;
+                listComments();
+            }
         }
         else{
             location.assign('home.html');
@@ -73,4 +143,99 @@ fetch('http://127.0.0.1:3000/listpost', {
 .catch((error) => {
     console.error('Error:', error);
 });
+
+function listComments(){
+    const list = document.querySelector('#commentlist');
+    list.innerHTML = '';
+    fetch('http://127.0.0.1:3000/listcomments', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({postid: getParameterByName('id')}),
+        credentials: 'include'
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        switch(data.code) {
+        case 200:
+            list.innerHTML = "";
+            list.innerHTML += `<div class="mb-4 border-b border-gray-300"><p class="text-gray-700 text-base mb-2">${data.posts.length} comment${data.posts.length !== 1 ? "s" : ""}.</p></div>`;
+            for (let i = 0; i < data.posts.length; i++) {
+                console.log(data.posts[i]);
+                list.innerHTML += `<div class="mb-4 border-b border-gray-300 cursor-pointer" onclick="location.replace('user.html?name=${data.posts[i].user}')"><div class="flex items-center text-sm leading-5 text-gray-500 mb-2"><img src="assets/avatar.png" class="w-10 h-10 rounded-full mr-3" alt="Avatar"><div><span class="font-medium text-gray-900">${data.posts[i].user}</span><span> - ${timeAgo(data.posts[i].timestamp)}</span> <i onclick="deleteComment(${data.posts[i].id});" id="deleteButton" class="hidden fa-solid fa-delete-left cursor-pointer"></i></div></div><p class="text-gray-700 text-base mb-2">${data.posts[i].comment}</p></div>`;
+            }
+            document.getElementById('comment').value = "";
+            if (canDelete){
+                const childDiv = document.querySelectorAll('#deleteButton');
+                childDiv.forEach(p => {
+                    p.removeAttribute('set', 'flex');
+                });
+            }
+            console.log(data);
+            break;
+        default:
+            console.log(500);
+        } 
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+listComments();
+
+function uploadComment(){
+    if (document.getElementById('comment').value != "") {
+        fetch('http://127.0.0.1:3000/comment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({comment: document.getElementById('comment').value, postid: getParameterByName("id")}),
+            credentials: 'include'
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            switch(data.code) {
+            case 200:
+                listComments();
+                break;
+            case 501:
+                document.getElementById("RateLimit").innerHTML="You have been rate limited, please wait for 2 minutes between comments!";
+                break;
+            default:
+                console.log(500);
+            } 
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
+}
+
+function deleteComment(id){
+    fetch('http://127.0.0.1:3000/deletecomment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({commentid: id}),
+            credentials: 'include'
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            switch(data.code) {
+            case 200:
+                listComments();
+                break;
+            default:
+                console.log(500);
+            } 
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
 </script>

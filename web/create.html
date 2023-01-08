@@ -8,13 +8,18 @@
 </head>
 <body>
     <iframe src="assets/header.html" width="100%" height="auto" frameborder="0" scrolling="no"></iframe>
-    <input class="flex items-center w-screen text-center p-4 text-5xl" id="title" placeholder="Enter your title here...">
-    <div class="p-5">
-        <textarea id="editor"></textarea>
+    <div class="flex items-center justify-center">
+        <div class="w-screen max-w-[1000px]">
+            <input class="flex items-center w-[100%] text-center p-4 text-5xl" id="title" placeholder="Enter your title here...">
+            <div class="p-5">
+                <textarea id="editor"></textarea>
+            </div>
+            <li class="p-5 sm:flex sm:items-center sm:justify-center">
+                <p onclick="uploadPost()" id="uploadBTN" class="text-center text-[#335C81] font-bold text-2xl p-2 cursor-pointer rounded-2xl sm:w-56 bg-[#C4DCF5] duration-150 hover:text-[#C4DCF5] hover:hover:bg-[#335C81]">Create post</p>
+            </li>   
+            <p id="warnUser" class="px-5 text-center"></p>
+        </div> 
     </div>
-    <li class="p-5">
-        <p onclick="uploadPost()" id="uploadBTN" class="text-center text-[#335C81] font-bold text-2xl p-2 cursor-pointer rounded-2xl bg-[#C4DCF5] duration-150 hover:text-[#C4DCF5] hover: hover:bg-[#335C81]">Create post</p>
-    </li>    
 </body>
 </html>
 <script>
@@ -143,6 +148,9 @@ function uploadPost(){
             switch(data.code) {
             case 200:
                 location.replace("post.html?id="+data.redirect);
+                break;
+            case 501:
+                document.getElementById("warnUser").innerHTML = "You have been rate limited, please wait up to 10 minutes before creating a new post!";
                 break;
             default:
                 console.log(500);
