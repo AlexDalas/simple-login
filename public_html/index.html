@@ -29,6 +29,9 @@
 </body>
 </html>
 <script>
+function genURL(urlString){
+    return "http://"+window.location.hostname+":3000/"+urlString
+}
 function timeConverter(UNIX_timestamp){
   var dateEP = new Date(UNIX_timestamp).toLocaleDateString("en-AU", {timeZone: "Australia/Melbourne"});
   var timeEP = new Date(UNIX_timestamp).toLocaleTimeString("en-AU", {timeZone: "Australia/Melbourne"});
@@ -47,7 +50,7 @@ function limitString(str) {
   return str;
 }
 
-fetch('http://127.0.0.1:3000/checkbanstatus', {
+fetch(genURL('checkbanstatus'), {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -65,7 +68,7 @@ fetch('http://127.0.0.1:3000/checkbanstatus', {
 .catch((error) => {
     console.error('Error:', error);
 });
-fetch('http://127.0.0.1:3000/token', {
+fetch(genURL('token'), {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -84,7 +87,7 @@ fetch('http://127.0.0.1:3000/token', {
 .catch((error) => {
     console.error('Error:', error);
 });
-fetch('http://127.0.0.1:3000/listpost', {
+fetch(genURL('listpost'), {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'

@@ -19,8 +19,10 @@
 </body>
 </html>
 <script>
-
-fetch('http://127.0.0.1:3000/checkbanstatus', {
+function genURL(urlString){
+    return "http://"+window.location.hostname+":3000/"+urlString
+}
+fetch(genURL('checkbanstatus'), {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -56,7 +58,7 @@ function getParameterByName(name) {
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 }
 
-fetch('http://127.0.0.1:3000/token', {
+fetch(genURL('token'), {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -80,7 +82,7 @@ fetch('http://127.0.0.1:3000/token', {
     console.error('Error:', error);
 });
 function search(){
-    fetch('http://127.0.0.1:3000/searchpost', {
+    fetch(genURL('searchpost'), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

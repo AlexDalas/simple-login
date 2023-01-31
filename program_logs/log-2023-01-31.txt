@@ -1,0 +1,489 @@
+---
+Starting script on 2023-01-31 at 14:33:9
+---
+----------
+ERROR OCCURED
+----------
+Error: connect ECONNREFUSED ::1:3306
+----------
+
+----------
+ERROR OCCURED
+----------
+Error: connect ECONNREFUSED ::1:3306
+----------
+
+----------
+ERROR OCCURED
+----------
+Error: connect ECONNREFUSED ::1:3306
+----------
+
+----------
+ERROR OCCURED
+----------
+Error: connect ECONNREFUSED ::1:3306
+----------
+
+---
+Starting script on 2023-01-31 at 17:18:14
+---
+----------
+ERROR OCCURED
+----------
+Error: getaddrinfo ENOTFOUND 67.219.100.242:3306
+----------
+
+----------
+ERROR OCCURED
+----------
+Error: getaddrinfo ENOTFOUND 67.219.100.242:3306
+----------
+
+----------
+ERROR OCCURED
+----------
+Error: getaddrinfo ENOTFOUND 67.219.100.242:3306
+----------
+
+----------
+ERROR OCCURED
+----------
+Error: getaddrinfo ENOTFOUND 67.219.100.242:3306
+----------
+
+---
+Starting script on 2023-01-31 at 17:18:38
+---
+----------
+ERROR OCCURED
+----------
+Error: ER_HOST_NOT_PRIVILEGED: Host '124.188.149.117' is not allowed to connect to this MySQL server
+----------
+
+----------
+ERROR OCCURED
+----------
+Error: ER_HOST_NOT_PRIVILEGED: Host '124.188.149.117' is not allowed to connect to this MySQL server
+----------
+
+----------
+ERROR OCCURED
+----------
+Error: ER_HOST_NOT_PRIVILEGED: Host '124.188.149.117' is not allowed to connect to this MySQL server
+----------
+
+----------
+ERROR OCCURED
+----------
+Error: ER_HOST_NOT_PRIVILEGED: Host '124.188.149.117' is not allowed to connect to this MySQL server
+----------
+
+---
+Starting script on 2023-01-31 at 17:22:10
+---
+----------
+ERROR OCCURED
+----------
+Error: ER_HOST_NOT_PRIVILEGED: Host '124.188.149.117' is not allowed to connect to this MySQL server
+----------
+
+----------
+ERROR OCCURED
+----------
+Error: ER_HOST_NOT_PRIVILEGED: Host '124.188.149.117' is not allowed to connect to this MySQL server
+----------
+
+----------
+ERROR OCCURED
+----------
+Error: ER_HOST_NOT_PRIVILEGED: Host '124.188.149.117' is not allowed to connect to this MySQL server
+----------
+
+----------
+ERROR OCCURED
+----------
+Error: ER_HOST_NOT_PRIVILEGED: Host '124.188.149.117' is not allowed to connect to this MySQL server
+----------
+
+---
+Starting script on 2023-01-31 at 17:24:2
+---
+----------
+ERROR OCCURED
+----------
+Error: ER_HOST_NOT_PRIVILEGED: Host '124.188.149.117' is not allowed to connect to this MySQL server
+----------
+
+----------
+ERROR OCCURED
+----------
+Error: ER_HOST_NOT_PRIVILEGED: Host '124.188.149.117' is not allowed to connect to this MySQL server
+----------
+
+----------
+ERROR OCCURED
+----------
+Error: ER_HOST_NOT_PRIVILEGED: Host '124.188.149.117' is not allowed to connect to this MySQL server
+----------
+
+----------
+ERROR OCCURED
+----------
+Error: ER_HOST_NOT_PRIVILEGED: Host '124.188.149.117' is not allowed to connect to this MySQL server
+----------
+
+---
+Starting script on 2023-01-31 at 17:25:14
+---
+Created table 'users'
+Created table 'tokens'
+Created table 'posts'
+Created table 'comments'
+::ffff:127.0.0.1 (not logged in) has accessed /token
+Authentication failed for alex_dalas@outlook.com (Does not exist)
+User Alex has created an account with the email alex_dalas@outlook.com
+Authenticated alex_dalas@outlook.com
+Generated token "f4ffd69d2375d50a5d47a204f7990d9a3edaf51bd3ff35186d4718baefe57189d6c040dd2c505752b148cd954da68de6f4f3278447e13cd8ed30628ffa4e5897" for user alex_dalas@outlook.com
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+Authenticated alex_dalas@outlook.com
+Generated token "ed78ca8313ad3e14451ef8d7d3608dae2c22d081aec7283bff95824b783388212f3329faa41d85f7abfae87e45e0641d0bf7cb00cf8c0286e4d76b01bd955796" for user alex_dalas@outlook.com
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+::ffff:127.0.0.1 (Alex) has accessed /token
+---
+Starting script on 2023-01-31 at 17:36:40
+---
+Table 'users' already exists
+Table 'tokens' already exists
+Table 'posts' already exists
+Table 'comments' already exists
+---
+Starting script on 2023-01-31 at 17:36:50
+---
+10.0.0.242
+Table 'users' already exists
+Table 'tokens' already exists
+Table 'posts' already exists
+Table 'comments' already exists
+---
+Starting script on 2023-01-31 at 17:37:38
+---
+You can access the website at http://10.0.0.242:3030
+Table 'users' already exists
+Table 'tokens' already exists
+Table 'posts' already exists
+Table 'comments' already exists
+---
+Starting script on 2023-01-31 at 17:38:7
+---
+You can access the website at http://10.0.0.242:3030
+Table 'users' already exists
+Table 'tokens' already exists
+Table 'posts' already exists
+Table 'comments' already exists
+---
+Starting script on 2023-01-31 at 17:38:42
+---
+You can access the website at http://10.0.0.242:3030
+Table 'users' already exists
+Table 'tokens' already exists
+Table 'posts' already exists
+Table 'comments' already exists
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+Authenticated alex_dalas@outlook.com
+Generated token "47bd457acf6c6e04d04ed325f82b98559091bdcaed0e4dedd0aa00d3db530e43f906a0a549637bcc991b0588eb2079d8fe5d17b81709d55bdcad316e93fb766a" for user alex_dalas@outlook.com
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+Authenticated alex_dalas@outlook.com
+Generated token "60438deab5c1226781df8a30c21d3890cbd666e70093a221f28b38b9778286f87752a87d76d834c5cc0ad2ee59ab4b62e680942463ef78c62b903f0b97d2e327" for user alex_dalas@outlook.com
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.221 (not logged in) has accessed /token
+::ffff:10.0.0.221 (not logged in) has accessed /token
+::ffff:10.0.0.221 (not logged in) has accessed /token
+---
+Starting script on 2023-01-31 at 18:31:34
+---
+You can access the website at http://10.0.0.242:3030
+---
+Starting script on 2023-01-31 at 18:31:52
+---
+You can access the website at http://10.0.0.242:3030
+---
+Starting script on 2023-01-31 at 18:33:52
+---
+You can access the website at http://10.0.0.242:3030
+Table 'users' already exists
+Table 'tokens' already exists
+Table 'posts' already exists
+Table 'comments' already exists
+::ffff:10.0.0.221 (not logged in) has accessed /token
+---
+Starting script on 2023-01-31 at 18:44:46
+---
+You can access the website at http://10.0.0.242:3000
+Table 'users' already exists
+Table 'tokens' already exists
+Table 'posts' already exists
+Table 'comments' already exists
+::ffff:10.0.0.221 (not logged in) has accessed /token
+---
+Starting script on 2023-01-31 at 18:56:12
+---
+You can access the website at http://10.0.0.242:3000
+Table 'users' already exists
+Table 'tokens' already exists
+Table 'posts' already exists
+Table 'comments' already exists
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+---
+Starting script on 2023-01-31 at 20:31:11
+---
+You can access the website at http://10.0.0.242:3030
+Table 'users' already exists
+Table 'tokens' already exists
+Table 'posts' already exists
+Table 'comments' already exists
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:10.0.0.221 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:10.0.0.221 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+---
+Starting script on 2023-01-31 at 21:9:1
+---
+You can access the website at http://10.0.0.242:3030
+Table 'users' already exists
+Table 'tokens' already exists
+Table 'posts' already exists
+Table 'comments' already exists
+---
+Starting script on 2023-01-31 at 21:15:19
+---
+You can access the website at http://10.0.0.242:3030
+Table 'users' already exists
+Table 'tokens' already exists
+Table 'posts' already exists
+Table 'comments' already exists
+---
+Starting script on 2023-01-31 at 21:16:8
+---
+You can access the website at http://10.0.0.242:3030
+Table 'users' already exists
+Table 'tokens' already exists
+Table 'posts' already exists
+Table 'comments' already exists
+::ffff:10.0.0.242 (not logged in) has accessed /token
+::ffff:10.0.0.242 (not logged in) has accessed /token
+::ffff:10.0.0.242 (not logged in) has accessed /token
+::ffff:10.0.0.242 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:10.0.0.221 (not logged in) has accessed /token
+::ffff:10.0.0.221 (not logged in) has accessed /token
+::ffff:10.0.0.221 (not logged in) has accessed /token
+::ffff:10.0.0.221 (not logged in) has accessed /token

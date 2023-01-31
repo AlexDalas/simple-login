@@ -65,7 +65,11 @@
 </body>
 </html>
 <script>
-fetch('http://127.0.0.1:3000/checkbanstatus', {
+function genURL(urlString){
+    return "http://"+window.location.hostname+":3000/"+urlString
+}
+
+fetch(genURL('checkbanstatus'), {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -89,7 +93,7 @@ fetch('http://127.0.0.1:3000/checkbanstatus', {
 .catch((error) => {
     console.error('Error:', error);
 });
-fetch('http://127.0.0.1:3000/token', {
+fetch(genURL('token'), {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -156,7 +160,7 @@ function signup(){
         password: document.getElementById('passwordS').value
     };
 
-    fetch('http://127.0.0.1:3000/signup', {
+    fetch(genURL('signup'), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -193,7 +197,7 @@ function login(){
         password: document.getElementById('passwordL').value
     };
 
-    fetch('http://127.0.0.1:3000/login', {
+    fetch(genURL('login'), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -210,7 +214,7 @@ function login(){
             document.getElementById('warning').innerHTML = "Password is incorrect!";
             break;
           case 200:
-            fetch('http://127.0.0.1:3000/gentoken', {
+            fetch(genURL('gentoken'), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -247,5 +251,6 @@ function login(){
     });
 }
 </script>
+
 
 

@@ -23,13 +23,17 @@
 </body>
 </html>
 <script>
+function genURL(urlString){
+    return "http://"+window.location.hostname+":3000/"+urlString
+}
+
 function getParameterByName(name) {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
     var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
     var results = regex.exec(location.search);
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 }
-fetch('http://127.0.0.1:3000/checkbanstatus', {
+fetch(genURL('checkbanstatus'), {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -47,7 +51,7 @@ fetch('http://127.0.0.1:3000/checkbanstatus', {
 .catch((error) => {
     console.error('Error:', error);
 });
-fetch('http://127.0.0.1:3000/token', {
+fetch(genURL('token'), {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -72,7 +76,7 @@ fetch('http://127.0.0.1:3000/token', {
 });
 postDetails = "";
 if (getParameterByName("edit")){
-    fetch('http://127.0.0.1:3000/listpost', {
+    fetch(genURL('listpost'), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -108,7 +112,7 @@ CKEDITOR.replace('editor', {
 function uploadPost(){
     if (getParameterByName("edit")){
         const userText = CKEDITOR.instances.editor.getData();
-        fetch('http://127.0.0.1:3000/editpost', {
+        fetch(genURL('editpost'), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -135,7 +139,7 @@ function uploadPost(){
         const userText = CKEDITOR.instances.editor.getData();
         console.log(title);
         console.log(userText);
-        fetch('http://127.0.0.1:3000/createpost', {
+        fetch(genURL('createpost'), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

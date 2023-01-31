@@ -24,8 +24,11 @@
 </body>
 </html>
 <script>
+function genURL(urlString){
+    return "http://"+window.location.hostname+":3000/"+urlString
+}
 
-fetch('http://127.0.0.1:3000/checkbanstatus', {
+fetch(genURL('checkbanstatus'), {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -60,7 +63,7 @@ function limitString(str) {
   }
   return str;
 }
-fetch('http://127.0.0.1:3000/listuser', {
+fetch(genURL('listuser'), {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'

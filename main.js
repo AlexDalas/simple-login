@@ -6,6 +6,7 @@ var recaptcha = new ReCaptchaVerify({
     secret: '6Le5zIQjAAAAACV1K7I7b9qcYjrURlVwPY07lpVM',
     verbose: true
 });
+var ip = require("ip");
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
@@ -13,12 +14,19 @@ const cors = require('cors');
 const app = express();
 const fs = require('fs');
 const admins = ["alex_dalas@outlook.com"];
+const { spawn } = require('child_process');
+const httpServer = spawn('python3', ['-m', 'http.server', '3030', '--directory', 'public_html/']);
 
 app.use(cors({
-    origin: 'http://127.0.0.1:3030',
+    origin: 'http://'+ip.address()+':3030',
     credentials: true,
   }));
 
+fs.writeFile('public_html/ip', 'http://'+ip.address()+':3000', err => {
+    if (err) {
+        console.error(err);
+    }
+});
 
 let fileStream;
 
@@ -46,7 +54,7 @@ process.on('SIGINT', closeLog);
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-yourDB = "testAPP";
+yourDB = "itproj";
 
 // Below commented code is needed for pre-setup
 /*
@@ -80,9 +88,9 @@ if (error) {
 con.end();
 */
 var con = mysql.createConnection({
-    host: "localhost",
-    user: "alex",
-    password: "TestPWD",
+    host: "alexdalas.com",
+    user: "itproj_usr",
+    password: "8ouNDRBKMfPhfQeW",
     database: yourDB,
     uri: process.env.DATABASE_URL,
     multipleStatements: false
@@ -755,5 +763,14 @@ app.post('/deletecomment', (req, res) => {
     });
 });
 
+httpServer.stdout.on('data', (data) => {
+    logData(`HTTP.SERVER: ${data}`)
+});
+
+httpServer.on('close', (data) => {
+    logData(`HTTP.SERVER exited with code ${data}`)
+});
+
 app.listen(3000);
+logData("You can access the website at http://" + ip.address() + ":3030" );
 
