@@ -3,7 +3,7 @@
     Allow users to delete their own comments
     Allow post owners to delete other's comments
     Add a character limit to the username and passwords (technical reasons)
-    Add ReCaptcha to the application
+    Add a button that lets you close registrations
 */
 
 var mysql = require('mysql');

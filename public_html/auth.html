@@ -32,13 +32,14 @@
                 <div class="p-4 w-[100%]">
                     <input required placeholder="Password" class="w-[100%]" type="password" id="passwordL">
                 </div>
-                <div class="g-recaptcha flex items-center justify-center" data-sitekey="6Le5zIQjAAAAAKMQdaNTyYhCOpkQvOOeg8JOkssc"></div>
+                <div data-callback="recaptchaCallback" class="flex items-center justify-center g-recaptcha" data-sitekey="6Le5zIQjAAAAAKMQdaNTyYhCOpkQvOOeg8JOkssc"></div>
                 <ul class="md:flex m-auto flex-row items-center justify-center">
                     <li class="p-5">
-                      <p onclick="login()" class="text-center text-[#335C81] font-bold text-xl p-2 cursor-pointer rounded-2xl bg-[#C4DCF5] duration-150 hover:text-[#C4DCF5] hover:bg-[#335C81]">Log in</p>
+                      <input type="submit" value="Log in" onclick="login()" class="text-center text-[#335C81] font-bold text-xl p-2 cursor-pointer rounded-2xl bg-[#C4DCF5] duration-150 hover:text-[#C4DCF5] hover:bg-[#335C81]"></p>
                     </li>
                 </ul>
-                <button class="text-center w-80" onclick="swapLogin()">Click here to sign up</button>
+                <div class="text-center w-80" onclick="swapLogin()">Click here to sign up</button>
+            </div>
             </div>
             <div id="signUpBox" class="hidden">
                 <div class="px-4 pt-4 pb-2 w-[100%]">
@@ -50,13 +51,13 @@
                 <div class="px-4 pt-2 pb-4 w-[100%]">
                     <input required placeholder="Password" class="w-[100%]" type="password" id="passwordS">
                 </div>
-                <div class="g-recaptcha flex items-center justify-center" data-sitekey="6Le5zIQjAAAAAKMQdaNTyYhCOpkQvOOeg8JOkssc"></div>
+                <div data-callback="recaptchaCallback" class="flex items-center justify-center g-recaptcha" data-sitekey="6Le5zIQjAAAAAKMQdaNTyYhCOpkQvOOeg8JOkssc"></div>
                 <ul class="md:flex m-auto flex-row items-center justify-center">
                     <li class="p-2">
-                      <p onclick="signup()" class="text-center text-[#335C81] font-bold text-xl p-2 cursor-pointer rounded-2xl bg-[#C4DCF5] duration-150 hover:text-[#C4DCF5] hover:bg-[#335C81]">Sign up</p>
+                      <div onclick="signup()" data-sitekey="6Le5zIQjAAAAAKMQdaNTyYhCOpkQvOOeg8JOkssc" class="text-center text-[#335C81] font-bold text-xl p-2 cursor-pointer rounded-2xl bg-[#C4DCF5] duration-150 hover:text-[#C4DCF5] hover:bg-[#335C81]">Sign up</div>
                     </li>
                 </ul>
-                <button class="text-center w-80" onclick="swapLogin()">Click here to sign in</button>
+                <div class="text-center w-80 cursor-pointer" onclick="swapLogin()">Click here to sign in</div>
             </div>
         </div>
         <br>
@@ -153,6 +154,8 @@ function ValidateEmail(input) {
 function signup(){
     if (!ValidateEmail(document.getElementById('emailS').value)){
         return;
+    }else if (!captcha){
+        return document.getElementById('warning').innerHTML = "Captcha is invalid!";
     }
     const data = {
         email: document.getElementById('emailS').value,
@@ -180,6 +183,9 @@ function signup(){
             document.getElementById('warning').innerHTML = "Account created!";
             swapLogin();
             break;
+          case 420:
+            document.getElementById('warning').innerHTML = "Captcha is invalid!";
+            break;
           default:
             document.getElementById('warning').innerHTML = "An error occured (500).";
         } 
@@ -188,15 +194,20 @@ function signup(){
         console.error('Error:', error);
     });
 }
+var captcha = false;
+function recaptchaCallback(){
+    captcha = true;
+}
 function login(){
     if (!ValidateEmail(document.getElementById('emailL').value)){
         return;
+    }else if (!captcha){
+        return document.getElementById('warning').innerHTML = "Captcha is invalid!";
     }
     const dataLogin = {
         email: document.getElementById('emailL').value,
         password: document.getElementById('passwordL').value
     };
-
     fetch(genURL('login'), {
         method: 'POST',
         headers: {
@@ -207,13 +218,13 @@ function login(){
     .then((response) => response.json())
     .then((data) => {
         switch(data.code) {
-          case 409:
+        case 409:
             document.getElementById('warning').innerHTML = "Account does not exist!";
             break;
-          case 404:
+        case 404:
             document.getElementById('warning').innerHTML = "Password is incorrect!";
             break;
-          case 200:
+        case 200:
             fetch(genURL('gentoken'), {
                 method: 'POST',
                 headers: {
@@ -242,7 +253,7 @@ function login(){
                 console.error('Error:', error);
             });
             break;
-          default:
+        default:
             document.getElementById('warning').innerHTML = "An error occured (500).";
         } 
     })
