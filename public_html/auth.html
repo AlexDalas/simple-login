@@ -143,13 +143,12 @@ function getParameterByName(name) {
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 }
 function ValidateEmail(input) {
+    // https://www.w3resource.com/javascript/form/email-validation.php
     var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    if (input.match(validRegex)) {
-        return true;
-    } else {
+    if (!input.match(validRegex)) {
         alert("Invalid email address!");
-        return false;
     }
+    return input.match(validRegex);
 }
 function signup(){
     if (!ValidateEmail(document.getElementById('emailS').value)){

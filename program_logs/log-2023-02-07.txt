@@ -381,3 +381,30 @@ Generated token "07dc3550fe219add8a195fbf29dcb9805f0c855a7997b0c0c8afe5f104828b7
 ::ffff:10.0.0.221 (not logged in) has accessed /token
 ::ffff:10.0.0.221 (not logged in) has accessed /token
 ::ffff:10.0.0.221 (not logged in) has accessed /token
+::ffff:10.0.0.221 (not logged in) has accessed /token
+---
+Starting script on 2023-02-07 at 0:14:48
+---
+You can access the website at http://10.0.0.242:3030
+Table 'users' already exists
+Table 'tokens' already exists
+Table 'posts' already exists
+Table 'comments' already exists
+::ffff:10.0.0.242 (AlexDalas) has accessed /token
+::ffff:10.0.0.242 (AlexDalas) has accessed /token
+::ffff:10.0.0.242 (AlexDalas) has accessed /token
+::ffff:10.0.0.242 (AlexDalas) has accessed /token
+::ffff:10.0.0.242 (AlexDalas) has accessed /token
+::ffff:10.0.0.242 (not logged in) has accessed /token
+Authentication failed for alex_dalas@outlook.com (Wrong password)
+Authenticated alex_dalas@outlook.com
+Generated token "42754d34576e87061470d43b1b876ce9aedff6ab68d3b3e9620e755f0457254b22099136ca5abdd89a4564e3812f57ce90508151cb6dcd9c82a232f0d748d059" for user alex_dalas@outlook.com
+::ffff:10.0.0.242 (AlexDalas) has accessed /token
+::ffff:10.0.0.242 (AlexDalas) has accessed /token
+::ffff:10.0.0.242 (AlexDalas) has accessed /token
+::ffff:10.0.0.242 (not logged in) has accessed /token
+Authentication failed for alex_dalas@outlook.com (Wrong password)
+Authenticated alex_dalas@outlook.com
+Generated token "1c92eb135158758e101989c2ec0856784be10f445da5e62ed0b7d819d36bff672a2dabc9f9656ef01c9a89d29dc93482ef146c3e154ac45e2fdcc9b96c7f518c" for user alex_dalas@outlook.com
+::ffff:10.0.0.242 (AlexDalas) has accessed /token
+::ffff:10.0.0.242 (AlexDalas) has accessed /token
