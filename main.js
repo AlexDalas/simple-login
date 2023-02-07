@@ -1,3 +1,11 @@
+/*
+    More use of the logs
+    Allow users to delete their own comments
+    Allow post owners to delete other's comments
+    Add a character limit to the username and passwords (technical reasons)
+    Add ReCaptcha to the application
+*/
+
 var mysql = require('mysql');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
@@ -15,12 +23,12 @@ const app = express();
 const fs = require('fs');
 const admins = ["alex_dalas@outlook.com"];
 const { spawn } = require('child_process');
-const httpServer = spawn('python3', ['-m', 'http.server', '3030', '--directory', 'public_html/']);
+const httpServer = spawn('python3', ['-m', 'http.server', '3030', '--directory', 'public_html']);
 
 app.use(cors({
     origin: 'http://'+ip.address()+':3030',
     credentials: true,
-  }));
+}));
 
 fs.writeFile('public_html/ip', 'http://'+ip.address()+':3000', err => {
     if (err) {
@@ -47,7 +55,7 @@ function closeLog() {
       fileStream = null;
     }
     process.exit();
-  }
+}
 
 process.on('SIGINT', closeLog);
 
@@ -88,9 +96,9 @@ if (error) {
 con.end();
 */
 var con = mysql.createConnection({
-    host: "alexdalas.com",
-    user: "itproj_usr",
-    password: "8ouNDRBKMfPhfQeW",
+    host: "localhost",
+    user: "itproject",
+    password: "OgFZMCENwrZTgH2uEFHz",
     database: yourDB,
     uri: process.env.DATABASE_URL,
     multipleStatements: false

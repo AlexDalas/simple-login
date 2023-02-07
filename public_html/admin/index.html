@@ -23,6 +23,9 @@
 </body>
 </html>
 <script>
+function genURL(urlString){
+    return "http://"+window.location.hostname+":3000/"+urlString
+}
 
 function timeConverter(UNIX_timestamp){
   return new Date(UNIX_timestamp).toLocaleDateString("en-AU", {timeZone: "Australia/Melbourne"});
@@ -40,7 +43,7 @@ function limitString(str) {
   return str;
 }
 function refreshPosts(){
-    fetch('http://127.0.0.1:3000/token', {
+    fetch(genURL('token'), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -54,7 +57,7 @@ function refreshPosts(){
                 location.replace("../auth.html?then=manage.html");
                 break;
             case 200:
-                fetch('http://127.0.0.1:3000/listpost', {
+                fetch(genURL('listpost'), {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -89,7 +92,7 @@ function refreshPosts(){
                         });    
                     }
                 });
-                fetch('http://127.0.0.1:3000/listusers', {
+                fetch(genURL('listusers'), {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -145,7 +148,7 @@ function refreshPosts(){
 refreshPosts();
 
 function deleteAccount(userID){
-    fetch('http://127.0.0.1:3000/deleteaccount', {
+    fetch(genURL('deleteaccount'), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -163,7 +166,7 @@ function deleteAccount(userID){
 
 //ban meaning suspend but i am not changing it
 function banAccount(userID){
-    fetch('http://127.0.0.1:3000/banaccount', {
+    fetch(genURL('banaccount'), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -180,7 +183,7 @@ function banAccount(userID){
 }
 
 function deletePost(postID){
-    fetch('http://127.0.0.1:3000/deletepost', {
+    fetch(genURL('deletepost'), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -1,0 +1,222 @@
+---
+Starting script on 2023-02-01 at 12:43:20
+---
+You can access the website at http://172.28.1.116:3030
+Table 'users' already exists
+Table 'tokens' already exists
+Table 'posts' already exists
+Table 'comments' already exists
+HTTP.SERVER exited with code 1
+---
+Starting script on 2023-02-01 at 12:43:34
+---
+You can access the website at http://172.28.1.116:3030
+HTTP.SERVER exited with code 1
+Created table 'users'
+Created table 'tokens'
+Created table 'posts'
+Created table 'comments'
+---
+Starting script on 2023-02-01 at 13:2:7
+---
+You can access the website at http://172.28.1.116:3030
+----------
+ERROR OCCURED
+----------
+Error: ER_NOT_SUPPORTED_AUTH_MODE: Client does not support authentication protocol requested by server; consider upgrading MySQL client
+----------
+
+----------
+ERROR OCCURED
+----------
+Error: ER_NOT_SUPPORTED_AUTH_MODE: Client does not support authentication protocol requested by server; consider upgrading MySQL client
+----------
+
+----------
+ERROR OCCURED
+----------
+Error: ER_NOT_SUPPORTED_AUTH_MODE: Client does not support authentication protocol requested by server; consider upgrading MySQL client
+----------
+
+----------
+ERROR OCCURED
+----------
+Error: ER_NOT_SUPPORTED_AUTH_MODE: Client does not support authentication protocol requested by server; consider upgrading MySQL client
+----------
+
+HTTP.SERVER exited with code 1
+---
+Starting script on 2023-02-01 at 14:35:45
+---
+You can access the website at http://172.28.1.116:3030
+----------
+ERROR OCCURED
+----------
+Error: ER_DBACCESS_DENIED_ERROR: Access denied for user 'itproject'@'localhost' to database 'itproj'
+----------
+
+----------
+ERROR OCCURED
+----------
+Error: ER_DBACCESS_DENIED_ERROR: Access denied for user 'itproject'@'localhost' to database 'itproj'
+----------
+
+----------
+ERROR OCCURED
+----------
+Error: ER_DBACCESS_DENIED_ERROR: Access denied for user 'itproject'@'localhost' to database 'itproj'
+----------
+
+----------
+ERROR OCCURED
+----------
+Error: ER_DBACCESS_DENIED_ERROR: Access denied for user 'itproject'@'localhost' to database 'itproj'
+----------
+
+---
+Starting script on 2023-02-01 at 15:13:39
+---
+You can access the website at http://172.28.1.116:3030
+Created table 'users'
+Created table 'tokens'
+Created table 'posts'
+Created table 'comments'
+---
+Starting script on 2023-02-01 at 15:13:44
+---
+You can access the website at http://172.28.1.116:3030
+Table 'users' already exists
+Table 'tokens' already exists
+Table 'posts' already exists
+Table 'comments' already exists
+::ffff:172.28.1.116 (not logged in) has accessed /token
+::ffff:172.28.1.116 (not logged in) has accessed /token
+User AlexDalas has created an account with the email alex_dalas@outlook.com
+Authenticated alex_dalas@outlook.com
+Generated token "ce54e11738f29b4672d70c4977a0c31f01a1edab8fe12ee40e33b6422c3363e6ae46e1e9391b3d16771e5d3d90a10a469df82f55320c3b722f540fc23cab98f9" for user alex_dalas@outlook.com
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.2.77 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+---
+Starting script on 2023-02-01 at 22:18:18
+---
+You can access the website at http://10.0.0.242:3030
+Table 'users' already exists
+Table 'tokens' already exists
+Table 'posts' already exists
+Table 'comments' already exists
+Authenticated alex_dalas@outlook.com
+Generated token "7834dd86c13f4b510fcc5256502f544825368374a4ac0f0a77ad7292b70ec85cf30fe3f41a611abcdf1d0ca32d27b2eb0cba18ca000f82a4a2297d28328e7728" for user alex_dalas@outlook.com
+::ffff:10.0.0.242 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+---
+Starting script on 2023-02-01 at 10:29:15
+---
+You can access the website at http://172.28.1.116:3030
+Table 'users' already exists
+Table 'tokens' already exists
+Table 'posts' already exists
+Table 'comments' already exists
+::ffff:172.28.1.116 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (not logged in) has accessed /token
+::ffff:172.28.2.226 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.2.226 (not logged in) has accessed /token
+::ffff:172.28.2.226 (not logged in) has accessed /token
+::ffff:172.28.1.116 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (not logged in) has accessed /token
+Authenticated alex_dalas@outlook.com
+Generated token "38e1e849d27a28cfb974242ec956871d38115f88f651710969a82a2440a0ab666433d2d8a0f4d220a9b826afbedd4d6be7df284f538fe2f9d41fc786b569d87e" for user alex_dalas@outlook.com
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:172.28.1.116 (not logged in) has accessed /token
+::ffff:172.28.1.116 (not logged in) has accessed /token
+::ffff:172.28.1.116 (not logged in) has accessed /token
+Authenticated alex_dalas@outlook.com
+Generated token "9e9e5a64aa7fdeb915e5f445262a04023bcb577840f55dc34911960fd714a5175393e306931a00b168bf9e4dced2c86ad0a3fdc52037befdad4f18a3a829e588" for user alex_dalas@outlook.com
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token

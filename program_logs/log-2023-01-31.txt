@@ -487,3 +487,162 @@ Table 'comments' already exists
 ::ffff:10.0.0.221 (not logged in) has accessed /token
 ::ffff:10.0.0.221 (not logged in) has accessed /token
 ::ffff:10.0.0.221 (not logged in) has accessed /token
+::ffff:10.0.0.242 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:10.0.0.242 (not logged in) has accessed /token
+::ffff:10.0.0.242 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (not logged in) has accessed /token
+Authenticated alex_dalas@outlook.com
+Generated token "3cd5562e906c2fbe224804257e83b65412ba3f6849789a04a2892fdcbbf04b6369366ac51d74d1f493c201c116cc436ff27c684a4a294eb7a894e9849199de2d" for user alex_dalas@outlook.com
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:10.0.0.242 (not logged in) has accessed /token
+::ffff:10.0.0.242 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.221 (not logged in) has accessed /token
+::ffff:10.0.0.221 (not logged in) has accessed /token
+::ffff:10.0.0.221 (not logged in) has accessed /token
+::ffff:10.0.0.221 (not logged in) has accessed /token
+::ffff:10.0.0.221 (not logged in) has accessed /token
+User alex@alexdalas.com tried to create an account with the name Alex, but that name is taken!
+User AlexDalas has created an account with the email alex@alexdalas.com
+Authentication failed for alex@alexdalas.com (Wrong password)
+Authenticated alex@alexdalas.com
+Generated token "61888474bec33ea0d961cc3f9b4321cdc09086609ccc630952518588e955c70f67b2f6516ae6ff3fc38ef91413184678993f0e03e4feb594b8903d9734b9897d" for user alex@alexdalas.com
+::ffff:10.0.0.221 (AlexDalas) has accessed /token
+::ffff:10.0.0.221 (AlexDalas) has accessed /token
+::ffff:10.0.0.221 (AlexDalas) has accessed /token
+::ffff:10.0.0.221 (AlexDalas) has accessed /token
+::ffff:10.0.0.221 (AlexDalas) has accessed /token
+::ffff:10.0.0.221 (AlexDalas) has accessed /token
+::ffff:10.0.0.221 (AlexDalas) has accessed /token
+::ffff:10.0.0.221 (AlexDalas) has accessed /token
+::ffff:10.0.0.221 (AlexDalas) has accessed /token
+::ffff:10.0.0.221 (not logged in) has accessed /token
+::ffff:10.0.0.221 (not logged in) has accessed /token
+::ffff:10.0.0.242 (not logged in) has accessed /token
+Authenticated alex_dalas@outlook.com
+Generated token "90c6d51699504e95604268098cf4fcb95ba0641202119bbf7333587935e27a15df4be3a4f66b2bb682bd9eadddeb58d8ff6c44f3dd8bde768f73a4443c569d1a" for user alex_dalas@outlook.com
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+::ffff:127.0.0.1 (not logged in) has accessed /token
+::ffff:10.0.0.242 (Alex) has accessed /token
+---
+Starting script on 2023-01-31 at 8:37:50
+---
+You can access the website at http://172.28.1.116:3030
+---
+Starting script on 2023-01-31 at 10:49:1
+---
+You can access the website at http://172.28.1.116:3030
+----------
+ERROR OCCURED
+----------
+Error: read ECONNRESET
+----------
+
+----------
+ERROR OCCURED
+----------
+Error: read ECONNRESET
+----------
+
+----------
+ERROR OCCURED
+----------
+Error: read ECONNRESET
+----------
+
+----------
+ERROR OCCURED
+----------
+Error: read ECONNRESET
+----------
+

@@ -1,0 +1,34 @@
+---
+Starting script on 2023-02-02 at 12:54:39
+---
+You can access the website at http://172.28.1.116:3030
+Table 'users' already exists
+Table 'tokens' already exists
+Table 'posts' already exists
+Table 'comments' already exists
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (not logged in) has accessed /token
+User Pinto has created an account with the email alex@alexdalas.com
+Authenticated alex@alexdalas.com
+Generated token "2b05e5a70d29d79fc20514b21fbd6df3f627f67662f082df21086a6674f6bc6c97a9b89be41f93b2d462420b77d82e5a4c493b9b54e11b7b58703aa7b8e83b02" for user alex@alexdalas.com
+::ffff:172.28.1.116 (Pinto) has accessed /token
+::ffff:172.28.1.116 (Pinto) has accessed /token
+::ffff:172.28.1.116 (Pinto) has accessed /token
+::ffff:172.28.1.116 (Pinto) has accessed /token
+::ffff:172.28.1.116 (Pinto) has accessed /token
+::ffff:172.28.1.116 (Pinto) has accessed /token
+::ffff:172.28.1.116 (Pinto) has accessed /token
+::ffff:172.28.1.116 (Pinto) has accessed /token
+::ffff:172.28.1.116 (Pinto) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (Pinto) has accessed /token
+::ffff:172.28.1.116 (Pinto) has accessed /token
+::ffff:172.28.1.116 (Pinto) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
