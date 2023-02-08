@@ -185,6 +185,9 @@ function signup(){
           case 420:
             document.getElementById('warning').innerHTML = "Captcha is invalid!";
             break;
+          case 501:
+            document.getElementById('warning').innerHTML = "Registrations are currently closed.";
+            break;
           default:
             document.getElementById('warning').innerHTML = "An error occured (500).";
         } 

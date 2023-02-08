@@ -157,6 +157,20 @@ con.query(`CREATE TABLE IF NOT EXISTS comments (id INT NOT NULL AUTO_INCREMENT, 
     }
 });  
 
+con.query(`CREATE TABLE IF NOT EXISTS settings (id INT NOT NULL AUTO_INCREMENT, name VARCHAR(255) NOT NULL, enabled BOOLEAN,  value VARCHAR(255), PRIMARY KEY(id));`, (error, results) => {
+    if (error) {
+        logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
+    } else {
+        if (!results.warningCount){
+            logData(`Created table 'posts'`);
+        }
+        else{
+            logData(`Table 'posts' already exists`);
+        }
+    }
+});  
+
+
 function accountExists(email){
     return new Promise((resolve, reject) => {
       con.query('SELECT COUNT(*) FROM users WHERE email = ?', [email], (error, results) => {
@@ -320,40 +334,28 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/signup', (req, res) => {
-    createUser(req.body.username, req.body.email, req.body.password).then(result => {
-        switch(result) {
-            case 409:
-                res.json({ code: 409 });
-                break;
-            case 408:
-                res.json({ code: 408 });
-                break;
-            case 200:
-                res.json({ code: 200 });
-                break;
-            default:
-                res.json({ code: 500 });
-                break;
-        } 
-    });
-    /*var userResponse = req.query['g-recaptcha-response'];
- 
-    recaptcha.checkResponse(userResponse, function(error, response){
-        if(error){
-            // an internal error?
-            res.status(400).render('400', {
-                message: error.toString()
-            });
-            return; 
-        }
-        if(response.success){
-            res.status(200).send('the user is a HUMAN :)');
-            // save session.. create user.. save form data.. render page, return json.. etc.
+    con.query("SELECT * FROM settings WHERE name = ?;", ["regOpen"], function (err, result) {
+        if (err || !result[0].enabled) {
+            res.json({ code: 501 });
         }else{
-            res.status(200).send('the user is a ROBOT :(');
-            // show warning, render page, return a json, etc.
+            createUser(req.body.username, req.body.email, req.body.password).then(result => {
+                switch(result) {
+                    case 409:
+                        res.json({ code: 409 });
+                        break;
+                    case 408:
+                        res.json({ code: 408 });
+                        break;
+                    case 200:
+                        res.json({ code: 200 });
+                        break;
+                    default:
+                        res.json({ code: 500 });
+                        break;
+                } 
+            });
         }
-    });*/
+    });
 });
 
 app.post('/token', (req, res) => {
@@ -761,6 +763,38 @@ app.post('/deletecomment', (req, res) => {
     isAdmin(req.cookies['token']).then(data=>{
         if (data != 500){
             con.query("DELETE FROM comments WHERE id = ?", [req.body.commentid], function (err, result) {
+                if (err) throw err;
+                res.json({ code: 200 });
+            });
+        }
+        else{
+            res.json({ code: 404 });
+        }
+    });
+});
+
+con.query("INSERT INTO settings IF NOT EXISTS (name, enabled) VALUES (?, ?)", ["regOpen", true], function (err, result) {});
+
+app.post('/getreg', (req, res) => {
+    isAdmin(req.cookies['token']).then(data=>{
+        if (data != 500){
+            con.query("SELECT * FROM settings WHERE name = ?;", ["regOpen"], function (err, result) {
+                if (err || !result[0].enabled) {
+                    res.json({ code: 400 });
+                }else{
+                    res.json({ code: 200 });
+                }
+            });
+        }
+        else{
+            res.json({ code: 404 });
+        }
+    });
+});
+app.post('/togglereg', (req, res) => {
+    isAdmin(req.cookies['token']).then(data=>{
+        if (data != 500){
+            con.query("UPDATE settings SET enabled = NOT enabled WHERE name = ?", ["regOpen"], function (err, result) {
                 if (err) throw err;
                 res.json({ code: 200 });
             });

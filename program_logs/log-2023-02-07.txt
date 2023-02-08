@@ -408,3 +408,31 @@ Authenticated alex_dalas@outlook.com
 Generated token "1c92eb135158758e101989c2ec0856784be10f445da5e62ed0b7d819d36bff672a2dabc9f9656ef01c9a89d29dc93482ef146c3e154ac45e2fdcc9b96c7f518c" for user alex_dalas@outlook.com
 ::ffff:10.0.0.242 (AlexDalas) has accessed /token
 ::ffff:10.0.0.242 (AlexDalas) has accessed /token
+---
+Starting script on 2023-02-07 at 8:54:10
+---
+You can access the website at http://172.28.1.116:3030
+Table 'users' already exists
+Table 'tokens' already exists
+Table 'posts' already exists
+Table 'comments' already exists
+::ffff:172.28.1.116 (not logged in) has accessed /token
+::ffff:172.28.1.116 (not logged in) has accessed /token
+::ffff:172.28.1.116 (not logged in) has accessed /token
+Authenticated alex_dalas@outlook.com
+Generated token "f8dafc04f8c088e71bf194233558a97814f6d51868be1a50c9249582d6dfb7ab8c12deb30d23f77ed6d9ab3e2f13c60677d82a3275ca93a2f771c2650a820351" for user alex_dalas@outlook.com
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (not logged in) has accessed /token

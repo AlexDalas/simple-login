@@ -19,6 +19,12 @@
         <div class="grid gap-4 p-2 w-auto" id="userlist">
         </div>
     </div>
+    <p class="text-center text-4xl font-semibold">Toggle registration</p>
+    <div class="scrollable p-5 mx-auto items-center">
+        <button class="grid gap-4 p-2 w-auto bg-red-500" onclick="togglePosts()" id="getRegistration">
+            Disabled
+        </button>
+    </div>
     <iframe src="../assets/footer.html" width="100%" height="auto" frameborder="0" scrolling="no"></iframe>
 </body>
 </html>
@@ -163,6 +169,42 @@ function deleteAccount(userID){
         }
     });
 }
+
+function togglePosts(){
+    fetch(genURL('togglereg'), {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include'
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        getPosts();
+    });
+}
+
+function getPosts(){
+    fetch(genURL('getreg'), {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include'
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        if(data.code == 200) {
+            document.querySelector('#getRegistration').setAttribute('class', 'bg-green-500');
+            document.querySelector('#getRegistration').innerHTML = "Enabled";
+        }else if (data.code == 400){
+            document.querySelector('#getRegistration').setAttribute('class', 'bg-red-500');
+            document.querySelector('#getRegistration').innerHTML = "Disabled";
+        }
+    });
+}
+
+getPosts()
 
 //ban meaning suspend but i am not changing it
 function banAccount(userID){
