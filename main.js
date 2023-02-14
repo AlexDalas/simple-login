@@ -4,6 +4,7 @@
     Allow post owners to delete other's comments
     Add a character limit to the username and passwords (technical reasons)
     Add a button that lets you close registrations
+    Gifs as comments
 */
 
 var mysql = require('mysql');
@@ -23,6 +24,7 @@ const app = express();
 const fs = require('fs');
 const admins = ["alex_dalas@outlook.com"];
 const { spawn } = require('child_process');
+var filter = require('filter');
 const httpServer = spawn('python3', ['-m', 'http.server', '3030', '--directory', 'public_html']);
 
 app.use(cors({
