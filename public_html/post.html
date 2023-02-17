@@ -5,6 +5,7 @@
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <link href="styles.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <iframe src="assets/header.html" width="100%" height="auto" frameborder="0" scrolling="no"></iframe>
@@ -190,7 +191,9 @@ function listComments(){
 listComments();
 
 function uploadComment(){
-    if (document.getElementById('comment').value != "") {
+    if (document.getElementById('comment').value.length > 256){
+        return document.getElementById("RateLimit").innerHTML = "Comment is too long (256 characters)!";
+    }else if (document.getElementById('comment').value != "") {
         fetch(genURL('comment'), {
             method: 'POST',
             headers: {

@@ -1,7 +1,13 @@
 <link href="../styles.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 <body class="p-0 m-0">
     <div class="bg-[#f4f4f4]">
+        <div id="maintenance" class="hidden">
+            <div class="bg-red-500 text-center text-2xl">
+                Maintenance mode! Only admins can view and update the website.
+            </div>
+        </div>
         <div class="sm:flex m-auto flex-row max-w-[1000px] place-content-between font-semibold font-sans duration-300 h-32 p-7 w-(100vh) align-middle">
             <ul>
                 <li class="text-[#222222] duration-150 sm:p-5 p-2 text-center text-4xl sm:text-2xl font-mono cursor-pointer">
@@ -19,6 +25,11 @@
                     <li class="text-[#222222] hover:text-red-400 duration-150 px-5 sm:p-5 cursor-pointer">
                         <a href="../auth.html" target="_parent"><i class="fa-solid fa-user"></i></a>
                     </li>
+                    <div id="admin" class="hidden">
+                        <li class="text-[#222222] hover:text-red-400 duration-150 px-5 sm:p-5 cursor-pointer">
+                            <a href="../admin/index.html" target="_parent"><i class="fa-solid fa-lock"></i></a>
+                        </li>
+                    </div>
                 </ul>
             </ul>
         </div>
@@ -37,11 +48,16 @@ fetch(genURL('token'), {
 })
 .then((response) => response.json())
 .then((data) => {
-    console.log(data.code);
+    if (data.maintenance && !data.admin){
+        window.top.location.replace("../maintenance.html");
+    }else if (data.maintenance && data.admin){
+        document.querySelector('#maintenance').removeAttribute("class", "hidden");
+    }
     switch(data.code) {
         case 200:
-            const maintext = document.querySelector('#maintext');
-            maintext.href = "../home.html";
+            document.querySelector('#maintext').href = "../home.html";
+            if (data.admin) {document.querySelector('#admin').removeAttribute("class", "hidden");}
+            //
             break;
     } 
 })

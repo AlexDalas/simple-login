@@ -1,0 +1,68 @@
+---
+Starting script on 2023-02-14 at 10:20:34
+---
+You can access the website at http://172.28.1.116:3030
+Table 'users' already exists
+Table 'tokens' already exists
+Table 'posts' already exists
+Table 'comments' already exists
+Table 'posts' already exists
+::ffff:172.28.1.116 (not logged in) has accessed /token
+::ffff:172.28.1.116 (not logged in) has accessed /token
+::ffff:172.28.1.116 (not logged in) has accessed /token
+Authenticated alex_dalas@outlook.com
+Generated token "afdb650c2fff9e110456cdc7c36a2fb557570ccdb9a95bb69bb7c787cc95739595c255a3f1c0a11510a047861de048ad5aba10ae1a07a7873af1bba27e3af914" for user alex_dalas@outlook.com
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+---
+Starting script on 2023-02-14 at 10:22:33
+---
+You can access the website at http://172.28.1.116:3030
+Table 'users' already exists
+Table 'tokens' already exists
+Table 'posts' already exists
+Table 'comments' already exists
+Table 'posts' already exists
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+---
+Starting script on 2023-02-14 at 10:24:45
+---
+You can access the website at http://172.28.1.116:3030
+Table 'users' already exists
+Table 'tokens' already exists
+Table 'posts' already exists
+Table 'comments' already exists
+Table 'posts' already exists
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (AlexDalas) has accessed /token
+::ffff:172.28.1.116 (not logged in) has accessed /token

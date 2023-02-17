@@ -4,6 +4,7 @@
   <title>Login</title>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <link href="styles.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <body class="h-screen flex items-center justify-center">
@@ -153,7 +154,11 @@ function ValidateEmail(input) {
 function signup(){
     if (!ValidateEmail(document.getElementById('emailS').value)){
         return;
-    }else if (!captcha){
+    }else if (document.getElementById('usernameS').value.length > 16){
+        console.log(document.getElementById('usernameS').value.length)
+        return document.getElementById('warning').innerHTML = "Username is too long!";
+    }
+    else if (!captcha){
         return document.getElementById('warning').innerHTML = "Captcha is invalid!";
     }
     const data = {
@@ -176,7 +181,7 @@ function signup(){
             document.getElementById('warning').innerHTML = "Account already exists!";
             break;
           case 408:
-            document.getElementById('warning').innerHTML = "Username is taken!";
+            document.getElementById('warning').innerHTML = "Username is unavaliable!";
             break;
           case 200:
             document.getElementById('warning').innerHTML = "Account created!";

@@ -2,9 +2,9 @@
     More use of the logs
     Allow users to delete their own comments
     Allow post owners to delete other's comments
-    Add a character limit to the username and passwords (technical reasons)
-    Add a button that lets you close registrations
     Gifs as comments
+    Push website live, accessable from outside of the local internet.
+        SSL is the main issue, get that working first.
 */
 
 var mysql = require('mysql');
@@ -21,10 +21,13 @@ const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
 const cors = require('cors');
 const app = express();
+const https = require('https');
 const fs = require('fs');
 const admins = ["alex_dalas@outlook.com"];
 const { spawn } = require('child_process');
-var filter = require('filter');
+var filter = require('profanity-filter');
+var qrcode = require('qrcode-terminal');
+filter.addWord("Filter");
 const httpServer = spawn('python3', ['-m', 'http.server', '3030', '--directory', 'public_html']);
 
 app.use(cors({
@@ -159,15 +162,15 @@ con.query(`CREATE TABLE IF NOT EXISTS comments (id INT NOT NULL AUTO_INCREMENT, 
     }
 });  
 
-con.query(`CREATE TABLE IF NOT EXISTS settings (id INT NOT NULL AUTO_INCREMENT, name VARCHAR(255) NOT NULL, enabled BOOLEAN,  value VARCHAR(255), PRIMARY KEY(id));`, (error, results) => {
+con.query(`CREATE TABLE IF NOT EXISTS settings (name VARCHAR(255) NOT NULL, enabled BOOLEAN,  value VARCHAR(255), PRIMARY KEY(name));`, (error, results) => {
     if (error) {
         logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
     } else {
         if (!results.warningCount){
-            logData(`Created table 'posts'`);
+            logData(`Created table 'settings'`);
         }
         else{
-            logData(`Table 'posts' already exists`);
+            logData(`Table 'settings' already exists`);
         }
     }
 });  
@@ -225,6 +228,14 @@ function createUser(name, email, password){
                     if (result){
                         resolve(408);
                         logData(`User ${email} tried to create an account with the name ${name}, but that name is taken!`);
+                    }
+                    else if (name.length > 16){
+                        resolve(408);
+                        logData(`User ${email} tried to create an account with the name ${name}, but that name is too long!`)
+                    }
+                    else if (String(filter.clean(name)).includes("*")) {
+                        resolve(408);
+                        logData(`User ${email} tried to create an account with the name ${name}, but that name is not appropriate!`)
                     }
                     else{
                         hashPassword(password).then((hashedPassword) => {
@@ -363,22 +374,24 @@ app.post('/signup', (req, res) => {
 app.post('/token', (req, res) => {
     const ip = req.ip;
     checkToken(req.cookies['token']).then(data=>{
-        if (data != 500){
-            con.query('SELECT * FROM users WHERE email = ?', [data], (error, results) => {
-                if (results){
-                    logData(`${ip} (${results[0].name}) has accessed ${req.path}`);
-                    res.json({ code: 200, name: results[0].name, email: results[0].email, id: results[0].id })
-                }
-                else{
-                    logData(`${ip} is not logged in`);
-                    res.json({ code: 500 });
-                }
-            });
-        }
-        else{
-            logData(`${ip} (not logged in) has accessed ${req.path}`);
-            res.json({ code: 404 });
-        }
+        con.query("SELECT * FROM settings WHERE name = ?;", ["maintenance"], function (err, result) {
+            if (data != 500){
+                con.query('SELECT * FROM users WHERE email = ?', [data], (error, results) => {
+                    if (results){
+                        logData(`${ip} (${results[0].name}) has accessed ${req.path}`);
+                        res.json({ code: 200, name: results[0].name, email: results[0].email, id: results[0].id, admin: admins.includes(results[0].email), maintenance: result[0].enabled })
+                    }
+                    else{
+                        logData(`${ip} is not logged in`);
+                        res.json({ code: 500, maintenance: result[0].enabled });
+                    }
+                });
+            }
+            else{
+                logData(`${ip} (not logged in) has accessed ${req.path}`);
+                res.json({ code: 500, maintenance: result[0].enabled });
+            }
+        });
     });
 });
 
@@ -495,7 +508,7 @@ app.post('/createpost', (req, res) => {
                         try{timestamp = results2[0].timestamp;}
                         catch{timestamp = 0;}
                         if (timestamp <= (Date.now() - 200000)){
-                            con.query('INSERT INTO posts (user, header, contents, timestamp) VALUES (?, ?, ?, ?)', [results[0].name, req.body.header, req.body.contents, Date.now()], (error) => {
+                            con.query('INSERT INTO posts (user, header, contents, timestamp) VALUES (?, ?, ?, ?)', [results[0].name, filter.clean(req.body.header), filter.clean(req.body.contents), Date.now()], (error) => {
                                 if (error) {
                                     logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
                                     res.json({ code: 500 });
@@ -572,7 +585,7 @@ app.post('/editpost', (req, res) => {
                 } else if (!resultsName || (UserPostName[0].email != data && !isAdmin(req.cookies['token']))) {
                         res.json({ code: 500 });
                     } else {
-                        con.query("UPDATE posts SET contents = ?, timestamp = ? WHERE id = ?", [req.body.contents, Date.now(), req.body.id], function (err, result) {
+                        con.query("UPDATE posts SET contents = ?, timestamp = ? WHERE id = ?", [filter.clean(req.body.contents), Date.now(), req.body.id], function (err, result) {
                             if (err) throw err;
                           });
                           res.json({ code: 200 });
@@ -712,6 +725,7 @@ app.post('/checkbanstatus', (req, res) => {
 
 app.post('/comment', (req, res) => {
     if (req.body.comment == null) {res.json({ code : 500 });}
+    if (req.body.comment.length > 256) {res.json({ code : 500 });}
     checkToken(req.cookies['token']).then(data=>{
         if (data != 500){
             con.query('SELECT * FROM users WHERE email = ?', [data], (error, results) => {
@@ -724,7 +738,7 @@ app.post('/comment', (req, res) => {
                         try{timestamp = results2[0].timestamp;}
                         catch{timestamp = 0;}
                         if (timestamp <= (Date.now() - 120000)){
-                            con.query('INSERT INTO comments (user, comment, postid, timestamp) VALUES (?, ?, ?, ?)', [results[0].name, req.body.comment, req.body.postid, Date.now()], (error) => {
+                            con.query('INSERT INTO comments (user, comment, postid, timestamp) VALUES (?, ?, ?, ?)', [results[0].name, filter.clean(req.body.comment), req.body.postid, Date.now()], (error) => {
                                 if (error) {
                                     logData(`----------\nERROR OCCURED\n----------\n${error}\n----------\n`);
                                     res.json({ code: 500 });
@@ -775,7 +789,8 @@ app.post('/deletecomment', (req, res) => {
     });
 });
 
-con.query("INSERT INTO settings IF NOT EXISTS (name, enabled) VALUES (?, ?)", ["regOpen", true], function (err, result) {});
+con.query("INSERT IGNORE INTO settings (name, enabled) VALUES (?, ?)", ["maintenance", false], function (err, result) {});
+con.query("INSERT IGNORE INTO settings (name, enabled) VALUES (?, ?)", ["regOpen", true], function (err, result) {});
 
 app.post('/getreg', (req, res) => {
     isAdmin(req.cookies['token']).then(data=>{
@@ -807,6 +822,36 @@ app.post('/togglereg', (req, res) => {
     });
 });
 
+app.post('/getmaintenance', (req, res) => {
+    isAdmin(req.cookies['token']).then(data=>{
+        if (data != 500){
+            con.query("SELECT * FROM settings WHERE name = ?;", ["maintenance"], function (err, result) {
+                if (err || !result[0].enabled) {
+                    res.json({ code: 400 });
+                }else{
+                    res.json({ code: 200 });
+                }
+            });
+        }
+        else{
+            res.json({ code: 404 });
+        }
+    });
+});
+app.post('/togglemaintenance', (req, res) => {
+    isAdmin(req.cookies['token']).then(data=>{
+        if (data != 500){
+            con.query("UPDATE settings SET enabled = NOT enabled WHERE name = ?", ["maintenance"], function (err, result) {
+                if (err) throw err;
+                res.json({ code: 200 });
+            });
+        }
+        else{
+            res.json({ code: 404 });
+        }
+    });
+});
+
 httpServer.stdout.on('data', (data) => {
     logData(`HTTP.SERVER: ${data}`)
 });
@@ -815,6 +860,19 @@ httpServer.on('close', (data) => {
     logData(`HTTP.SERVER exited with code ${data}`)
 });
 
-app.listen(3000);
-logData("You can access the website at http://" + ip.address() + ":3030" );
+//app.listen(3000);
 
+var options = {
+    key: fs.readFileSync('pk.key'),
+    cert: fs.readFileSync('cert.crt'),
+};
+
+
+var server = https.createServer(options, app).listen(3000, function(){
+    logData("\nYou can access the website at http://" + ip.address() + ":3030, server started at :3000");
+  });
+
+qrcode.generate("http://" + ip.address() + ":3030", {small: true}, function (qrcode) {
+    // This one uses console.log instead of logData because we don't need to output the QR code to the logs.
+    console.log("\n"+qrcode+"\n---")
+});
