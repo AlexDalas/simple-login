@@ -28,13 +28,13 @@ You now have the code set up. The rest is up to you.
 
 Node JS, the coding language that runs the back-end code.
 
-    Javascript is the language used in Node JS, Node JS is what runs the JS code.
+- Javascript is the language used in Node JS, Node JS is what runs the JS code.
     
 HTML for creating the bare-bones of the front-end of the website.
 
-    Tailwind CSS for providing a easy-to-use framework to create modern websites, which changes this bare-bones website and makes it look complete.
+- Tailwind CSS for providing a easy-to-use framework to create modern websites, which changes this bare-bones website and makes it look complete.
     
-    Javascript for connecting the front-end to the back-end, using HTML requests, as well as letting me do whatever I want with the output of requests.
+- Javascript for connecting the front-end to the back-end, using HTML requests, as well as letting me do whatever I want with the output of requests.
     
     
 MySQL for storing information in a secure manner.
@@ -46,15 +46,15 @@ Google reCAPTCHA, which helps me keep the website secure
 
 NPM packages, which were vital:
 
-    ExpressJS, which provides a framework for getting information through GET and POST requests.
+- ExpressJS, which provides a framework for getting information through GET and POST requests.
     
-    Profanity-filter, which helps me keep the website clean.
+- Profanity-filter, which helps me keep the website clean.
     
-    cookie-parser and body-parser, which both let me grab data from the users and authenticate the user.
+- cookie-parser and body-parser, which both let me grab data from the users and authenticate the user.
+
+- bcrypt, crypto, which help me hash & encrypt passwords and authenticate with passwords.
     
-    bcrypt, crypto, which help me hash & encrypt passwords and authenticate with passwords.
-    
-    Many more, which all helped me make this software what it is.
+- Many more, which all helped me make this software what it is.
     
 
 # Examples
