@@ -24,6 +24,24 @@ You might have to make a "cert.crt" and "pk.key" file in the root of the directo
 
 You now have the code set up. The rest is up to you.
 
+# Apps, frameworks, and coding languages used.
+
+Node JS, the coding language that runs the back-end code.
+    Javascript is the language used in Node JS, Node JS is what runs the JS code.
+HTML for creating the bare-bones of the front-end of the website.
+    Tailwind CSS for providing a easy-to-use framework to create modern websites, which changes this bare-bones website and makes it look complete.
+    Javascript for connecting the front-end to the back-end, using HTML requests, as well as letting me do whatever I want with the output of requests.
+MySQL for storing information in a secure manner.
+
+CKEditor (WYSIWYG editor, which is what is used to create the content inside of posts)
+Google reCAPTCHA, which helps me keep the website secure
+NPM packages, which were vital:
+    ExpressJS, which provides a framework for getting information through GET and POST requests.
+    Profanity-filter, which helps me keep the website clean.
+    cookie-parser and body-parser, which both let me grab data from the users and authenticate the user.
+    bcrypt, crypto, which help me hash & encrypt passwords and authenticate with passwords.
+    Many more, which all helped me make this software what it is.
+
 # Examples
 
 ![image](https://user-images.githubusercontent.com/48403821/222436084-4762325c-0dca-40a9-92c7-8c27765ab36d.png)
