@@ -1,4 +1,4 @@
-# simple-login
+# Simple Login
 
 This was a school project, which served as a simple posting system.
 
