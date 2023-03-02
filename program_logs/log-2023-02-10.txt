@@ -1,4 +1,0 @@
-::ffff:172.28.2.226 (not logged in) has accessed /token
-::ffff:172.28.2.226 (not logged in) has accessed /token
-::ffff:172.28.2.226 (not logged in) has accessed /token
-::ffff:172.28.2.226 (not logged in) has accessed /token
